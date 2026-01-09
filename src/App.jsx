@@ -7,8 +7,8 @@ import Houses from './pages/Houses/Houses.jsx'
 import SignIn from './pages/SignIn.jsx'
 import SignUp from './pages/SignUp.jsx'
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword.jsx'
-
-
+import './App.css'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 
 export default function App() {
   // const [theme, setTheme] = useState('light');
@@ -24,6 +24,7 @@ export default function App() {
               <Route path='/sign-in' element={<SignIn />} />
               <Route path='/sign-up' element={<SignUp />} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
+              <Route path='*' element={<NotFoundPage />} />
             </Routes>
           </MainLayout>
         </BrowserRouter>
