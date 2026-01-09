@@ -28,7 +28,7 @@ export default function Characters() {
       .then(data => setStudents(data))
       .catch(error => console.error(error))
   }, [])
-
+  console.log('caracters', characters)
   const handleHouseChange = (e) => {
     setHouse(e.target.value)
   }

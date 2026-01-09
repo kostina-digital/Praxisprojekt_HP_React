@@ -26,18 +26,25 @@ export default function CharacterCard({ character }) {
             objectFit: 'cover'
           }}
         />
-        <CardContent>
+        <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'flex-start', justifyContent: 'flex-start'}}>
           <Typography gutterBottom variant="h5" component="div">
             {character.name || 'Unknown'}
           </Typography>
           {character.house && (
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {character.house}
+             <b>House: </b> {character.house || 'Unknown'}
             </Typography>
           )}
-          {character.patronus && (
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Patronus: {character.patronus || 'Unknown'}
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            <b>Patronus: </b> {character.patronus && character.patronus.trim() ? character.patronus : 'Unknown'}
+          </Typography>
+          {character.wand && (
+            <Typography
+              variant="body2"
+              sx={{ color: 'text.secondary', width: '100%', pl: 0, textAlign: 'left' }}
+            >
+              <b>Wand: </b>
+              {character.wand.wood || 'Unknown'} wood, {character.wand.core || 'Unknown'} core, {character.wand.length || 'Unknown'} length
             </Typography>
           )}
         </CardContent>
