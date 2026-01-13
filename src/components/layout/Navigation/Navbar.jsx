@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
+import { useCharactersFilter } from '../../../context/CharactersFilterContext'
 
 export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState(null)
   const navRef = useRef(null)
+  const { handleCharactersStyleChange } = useCharactersFilter()
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -51,7 +53,10 @@ export default function Navbar() {
                 <Link 
                   to="/characters" 
                   className="block px-4 py-2 hover:bg-gray-100"
-                  onClick={handleDropdownClose}
+                  onClick={() => {
+                    handleDropdownClose()
+                    handleCharactersStyleChange('allCharacters')
+                  }}
                 >
                   All Characters
                 </Link>
@@ -60,7 +65,10 @@ export default function Navbar() {
                 <Link 
                   to="/characters/staff" 
                   className="block px-4 py-2 hover:bg-gray-100"
-                  onClick={handleDropdownClose}
+                  onClick={() => {
+                    handleDropdownClose()
+                    handleCharactersStyleChange('onlyStaff')
+                  }}
                 >
                   Staff
                 </Link>
@@ -69,7 +77,10 @@ export default function Navbar() {
                 <Link 
                   to="/characters/students" 
                   className="block px-4 py-2 hover:bg-gray-100"
-                  onClick={handleDropdownClose}
+                  onClick={() => {
+                    handleDropdownClose()
+                    handleCharactersStyleChange('onlyStudents')
+                  }}
                 >
                   Students
                 </Link>
@@ -132,6 +143,10 @@ export default function Navbar() {
           )}
         </li>
       </ul>
+      <div className="flex items-center gap-2">
+        <Link to="/sign-in">Sign In</Link>
+        <Link to="/sign-up">Sign Up</Link>
+      </div>
     </nav>
   )
 }

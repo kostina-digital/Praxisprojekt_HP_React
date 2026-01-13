@@ -1,40 +1,32 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import CharacterCard from './CharacterCard.jsx'
-
-const URL = 'https://hp-api.onrender.com/api/characters'
-const URL_STAFF = 'https://hp-api.onrender.com/api/characters/staff'
-const URL_STUDENTS = 'https://hp-api.onrender.com/api/characters/students'
+import { useCharacters } from '../../hooks/useCharacters.js'
+import { useCharactersFilter } from '../../context/CharactersFilterContext.jsx'
 
 export default function Characters() {
-  const [characters, setCharacters] = useState([])
-  const [staff, setStaff] = useState([])
-  const [students, setStudents] = useState([])
+  const location = useLocation()
+  const { characters, staff, students, loading, error } = useCharacters()
+  const { charactersStyle, handleCharactersStyleChange } = useCharactersFilter()
   const [house, setHouse] = useState('all')
-  const [charactersStyle, setCharactersStyle] = useState('allCharacters')
-
+  
+  // Определяем тип персонажей на основе URL при первой загрузке
   useEffect(() => {
-    fetch(URL)
-      .then(response => response.json())
-      .then(data => setCharacters(data))
-      .catch(error => console.error(error))
-
-    fetch(URL_STAFF)
-      .then(response => response.json())
-      .then(data => setStaff(data))
-      .catch(error => console.error(error))
-
-    fetch(URL_STUDENTS)
-      .then(response => response.json())
-      .then(data => setStudents(data))
-      .catch(error => console.error(error))
-  }, [])
-  console.log('caracters', characters)
+    if (location.pathname === '/characters/staff') {
+      handleCharactersStyleChange('onlyStaff')
+    } else if (location.pathname === '/characters/students') {
+      handleCharactersStyleChange('onlyStudents')
+    } else if (location.pathname === '/characters') {
+      handleCharactersStyleChange('allCharacters')
+    }
+  }, [location.pathname, handleCharactersStyleChange])
+  
   const handleHouseChange = (e) => {
     setHouse(e.target.value)
   }
 
-  const handleCharactersStyleChange = (e) => {
-    setCharactersStyle(e.target.value)
+  const handleSelectChange = (e) => {
+    handleCharactersStyleChange(e.target.value)
   }
 
   function getFilteredCharacters() {
@@ -59,6 +51,14 @@ export default function Characters() {
 
   const filteredCharacters = getFilteredCharacters()
 
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <div>Error loading characters: {error.message}</div>
+  }
+
   return (
     <>
     <div className='flex flex-col gap-4'>
@@ -71,7 +71,7 @@ export default function Characters() {
         <option value="slytherin">Slytherin</option>
       </select>
 
-      <select value={charactersStyle} onChange={handleCharactersStyleChange}>
+      <select value={charactersStyle} onChange={handleSelectChange}>
         <option value="allCharacters">All Characters</option>
         <option value="onlyStaff">Only Staff</option>
         <option value="onlyStudents">Only Students</option>
