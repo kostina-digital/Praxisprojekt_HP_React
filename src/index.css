@@ -70,3 +70,46 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Gallery container - main image area should be 1/3 of screen */
+.gallery-container {
+  height: 33.33vh !important;
+  overflow: hidden;
+}
+
+.gallery-container .image-gallery {
+  height: 100% !important;
+}
+
+.gallery-container .image-gallery-content {
+  height: 100% !important;
+  position: relative;
+}
+
+.gallery-container .image-gallery-content .image-gallery-slide-wrapper {
+  height: 100% !important;
+}
+
+.gallery-container .image-gallery-content .image-gallery-slide-wrapper .image-gallery-image {
+  height: 100% !important;
+  object-fit: cover;
+}
+
+/* Hide thumbnails completely */
+.gallery-container .image-gallery-thumbnails {
+  display: none !important;
+}
+
+/* Gallery navigation arrows centered vertically relative to image content area */
+.gallery-container .image-gallery {
+  position: relative;
+}
+
+.gallery-container .image-gallery-left-nav,
+.gallery-container .image-gallery-right-nav {
+  position: absolute !important;
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+  margin-top: 0 !important;
+}
