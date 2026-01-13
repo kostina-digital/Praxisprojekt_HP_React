@@ -10,6 +10,8 @@ import ForgotPassword from './pages/ForgotPassword/ForgotPassword.jsx'
 import './App.css'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import { CharactersFilterProvider } from './context/CharactersFilterContext.jsx'
+import TermsOfService from './pages/TermsOfService.jsx'
+import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
 
 export default function App() {
   // const [theme, setTheme] = useState('light');
@@ -28,6 +30,8 @@ export default function App() {
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path='/forgot-password' element={<ForgotPassword />} />
+                <Route path='/terms-of-service' element={<TermsOfService />} />
+                <Route path='/privacy-policy' element={<PrivacyPolicy />} />
                 <Route path='*' element={<NotFoundPage />} />
               </Routes>
             </MainLayout>

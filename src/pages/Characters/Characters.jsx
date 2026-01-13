@@ -3,12 +3,16 @@ import { useLocation } from 'react-router-dom'
 import CharacterCard from './CharacterCard.jsx'
 import { useCharacters } from '../../hooks/useCharacters.js'
 import { useCharactersFilter } from '../../context/CharactersFilterContext.jsx'
+import PaginationComponent from '../../components/common/PaginationComponent.jsx'
 
 export default function Characters() {
   const location = useLocation()
   const { characters, staff, students, loading, error } = useCharacters()
   const { charactersStyle, handleCharactersStyleChange } = useCharactersFilter()
   const [house, setHouse] = useState('all')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(12) // Количество элементов на странице
+  const [showAll, setShowAll] = useState(false) // Флаг для "показать все"
   
   // Определяем тип персонажей на основе URL при первой загрузке
   useEffect(() => {
@@ -27,6 +31,18 @@ export default function Characters() {
 
   const handleSelectChange = (e) => {
     handleCharactersStyleChange(e.target.value)
+  }
+
+  const handleItemsPerPageChange = (e) => {
+    const value = e.target.value
+    if (value === 'all') {
+      setShowAll(true)
+      setItemsPerPage(filteredCharacters.length)
+    } else {
+      setShowAll(false)
+      setItemsPerPage(Number(value))
+    }
+    setCurrentPage(1) // Сбрасываем на первую страницу при изменении количества
   }
 
   function getFilteredCharacters() {
@@ -50,6 +66,29 @@ export default function Characters() {
   }
 
   const filteredCharacters = getFilteredCharacters()
+
+  // Обновляем itemsPerPage при изменении количества отфильтрованных элементов (если выбрано "все")
+  useEffect(() => {
+    if (showAll) {
+      setItemsPerPage(filteredCharacters.length)
+    }
+  }, [filteredCharacters.length, showAll])
+
+  // Вычисляем индексы для текущей страницы
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentCharacters = filteredCharacters.slice(indexOfFirstItem, indexOfLastItem)
+
+  // Сбрасываем на первую страницу при изменении фильтров
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [house, charactersStyle])
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+    // Прокрутка вверх при смене страницы
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   if (loading) {
     return <div>Loading...</div>
@@ -77,10 +116,25 @@ export default function Characters() {
         <option value="onlyStudents">Only Students</option>
       </select>
 
-      <div className='flex flex-wrap gap-4'>
-        {filteredCharacters.map(character => (
-          <CharacterCard key={character.id || character.name} character={character} />
-        ))}
+      <select value={showAll ? 'all' : itemsPerPage} onChange={handleItemsPerPageChange}>
+        <option value="12">12 per page</option>
+        <option value="24">24 per page</option>
+        <option value="48">48 per page</option>
+        <option value="all">All</option>
+      </select>
+
+      <div className='flex flex-col gap-4'>
+        <div className='flex flex-wrap gap-4'>
+          {currentCharacters.map(character => (
+            <CharacterCard key={character.id || character.name} character={character} />
+          ))}
+        </div>
+        <PaginationComponent 
+          totalItems={filteredCharacters.length}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
     </>

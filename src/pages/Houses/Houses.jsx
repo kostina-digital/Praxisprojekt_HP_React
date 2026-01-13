@@ -7,10 +7,13 @@ import HouseSlytherin from './HouseSlytherin.jsx'
 export default function Houses() {
   return (
     <div>
-      <HouseGriffindor />
-      <HouseHufflepuff />
-      <HouseRavenclaw />
-      <HouseSlytherin />
+      <h1>Houses</h1>
+      <div className="flex flex-col gap-4">
+        <HouseGriffindor />
+        <HouseHufflepuff />
+        <HouseRavenclaw />
+        <HouseSlytherin />
+      </div>
     </div>
   )
 }

@@ -1,49 +1,50 @@
 import React from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
+import defaultGalleryImages from "./galleryImages.js";
 
-const PREFIX_URL =
-  "https://raw.githubusercontent.com/xiaolin/react-image-gallery/master/static/";
-
+/**
+ * Переиспользуемый компонент галереи изображений
+ * 
+ * @param {Array} images - Массив объектов изображений. Каждый объект должен содержать:
+ *   - original: путь к оригинальному изображению
+ *   - thumbnail: путь к миниатюре (опционально)
+ *   - description: описание изображения (опционально)
+ * @param {boolean} showBullets - Показывать ли кружочки пагинации (по умолчанию: true)
+ * @param {boolean} infinite - Бесконечная прокрутка (по умолчанию: true)
+ * @param {boolean} showThumbnails - Показывать ли миниатюры (по умолчанию: false)
+ * @param {boolean} showFullscreenButton - Показывать ли кнопку полноэкранного режима (по умолчанию: true)
+ * @param {boolean} showNav - Показывать ли стрелки навигации (по умолчанию: true)
+ * @param {number} slideDuration - Длительность анимации перехода в мс (по умолчанию: 450)
+ * @param {number} slideInterval - Интервал автопрокрутки в мс (по умолчанию: 3000)
+ * @param {string} thumbnailPosition - Позиция миниатюр: "bottom", "top", "left", "right" (по умолчанию: "bottom")
+ * @param {boolean} autoPlay - Автоматическая прокрутка (по умолчанию: true)
+ */
 class Gallery extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showIndex: false,
-      showBullets: true,
-      infinite: true,
-      showThumbnails: false,
-      showFullscreenButton: true,
+      showBullets: props.showBullets !== undefined ? props.showBullets : true,
+      infinite: props.infinite !== undefined ? props.infinite : true,
+      showThumbnails: props.showThumbnails !== undefined ? props.showThumbnails : false,
+      showFullscreenButton: props.showFullscreenButton !== undefined ? props.showFullscreenButton : true,
       showGalleryFullscreenButton: true,
-      showNav: true,
+      showNav: props.showNav !== undefined ? props.showNav : true,
       slideVertically: false,
       isRTL: false,
-      slideDuration: 450,
-      slideInterval: 4000,
+      slideDuration: props.slideDuration || 450,
+      slideInterval: props.slideInterval || 3000,
       slideOnThumbnailOver: false,
-      thumbnailPosition: "bottom",
+      thumbnailPosition: props.thumbnailPosition || "bottom",
       showVideo: false,
       useWindowKeyDown: true,
+      autoPlay: props.autoPlay !== undefined ? props.autoPlay : true,
     };
     this._toggleShowVideo = this._toggleShowVideo.bind(this);
 
-    this.images = [
-      {
-        thumbnail: `${PREFIX_URL}4v.jpg`,
-        original: `${PREFIX_URL}4v.jpg`,
-        embedUrl:
-          "https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0",
-        description: "Render custom slides (such as videos)",
-        renderItem: this._renderVideo.bind(this),
-      },
-      {
-        original: `${PREFIX_URL}1.jpg`,
-        thumbnail: `${PREFIX_URL}1t.jpg`,
-        originalClass: "featured-slide",
-        thumbnailClass: "featured-thumb",
-        description: "Custom class for slides & thumbnails",
-      },
-    ].concat(this._getStaticImages());
+    // Используем изображения из props или дефолтные
+    this.images = props.images || defaultGalleryImages;
   }
 
   _onImageClick(event) {
@@ -80,31 +81,7 @@ class Gallery extends React.Component {
     }
   }
 
-  _handleInputChange(state, event) {
-    if (event.target.value > 0) {
-      this.setState({ [state]: event.target.value });
-    }
-  }
 
-  _handleCheckboxChange(state, event) {
-    this.setState({ [state]: event.target.checked });
-  }
-
-  _handleThumbnailPositionChange(event) {
-    this.setState({ thumbnailPosition: event.target.value });
-  }
-
-  _getStaticImages() {
-    let images = [];
-    for (let i = 2; i < 12; i++) {
-      images.push({
-        original: `${PREFIX_URL}${i}.jpg`,
-        thumbnail: `${PREFIX_URL}${i}t.jpg`,
-      });
-    }
-
-    return images;
-  }
 
   _resetVideo() {
     this.setState({ showVideo: false });
@@ -186,7 +163,7 @@ class Gallery extends React.Component {
               this.state.showGalleryFullscreenButton
             }
             showPlayButton={false}
-            autoPlay={true}
+            autoPlay={this.state.autoPlay}
             showThumbnails={this.state.showThumbnails}
             showIndex={this.state.showIndex}
             showNav={this.state.showNav}

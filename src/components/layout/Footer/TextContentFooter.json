@@ -1,0 +1,80 @@
+{
+  "termsOfService": {
+    "h1": "Terms of Service",
+    "lastUpdated": "Last updated: January 2026",
+    "p": "By accessing or using this website (the \"Site\"), you agree to be bound by these Terms of Service. If you do not agree with these terms, please do not use the Site.",
+    "content": [
+      {
+        "title": "1. Nature of the Website",
+        "description": "This Site is a fan-made, non-commercial educational project created as part of a learning process. The Site is not affiliated with, authorized by, or endorsed by the official owners of the Harry Potter franchise. All trademarks, characters, names, and related materials belong to their respective rights holders."
+      },
+      {
+        "title": "2. Acceptable Use",
+        "description": "You agree to use the Site only for lawful purposes and in a way that does not violate applicable laws or regulations. You agree not to: Attempt to gain unauthorized access to the Site or its systems; Disrupt or interfere with the Site's functionality; Upload or distribute malicious software or harmful content; Use the Site for commercial purposes; Use the Site for any illegal activity; Use the Site for any activity that is harmful to other users or the Site."
+      },
+      {
+        "title": "3. Intellectual Property",
+        "description": "The Site and all content, materials, and information contained therein are protected by copyright and other intellectual property laws. You agree not to reproduce, distribute, or create derivative works based on the Site or any content, materials, or information contained therein without the prior written consent of the Site."
+      },
+      {
+        "title": "4. Disclaimer of Warranties",
+        "description": "The Site is provided \"as is\" and without warranties of any kind. The Site is not responsible for any errors or omissions, or for the results obtained from the use of the Site. The Site is not responsible for any losses or damages, including without limitation, direct, indirect, incidental, special, consequential, or exemplary damages, arising from the use of the Site."
+      },
+      {
+        "title": "5. Limitation of Liability",
+        "description": "The Site is not responsible for any losses or damages, including without limitation, direct, indirect, incidental, special, consequential, or exemplary damages, arising from the use of the Site."
+      },
+      {
+        "title": "6. Termination",
+        "description": "The Site reserves the right to terminate or suspend your access to the Site at any time, without notice, for any reason or no reason."
+      }
+    ]
+  },
+  "privacyPolicy": {
+    "h1": "Privacy Policy",
+    "lastUpdated": "Last updated: January 2026",
+    "p": "This Privacy Policy explains how information is collected, used, and protected when you visit and use this website (the \"Site\"). This Site is a fan-made, non-commercial project created for educational purposes.",
+    "content": [
+      {
+        "title": "1. Purpose of This Website",
+        "description": "This website was created as part of a learning project using React and is intended for fans of the Harry Potter universe. The Site is not intended to generate profit, sell products, or provide paid services."
+      },
+      {
+        "title": "2. Information We Collect",
+        "description": "2.1 Personal Information: We do not intentionally collect or request personal information, such as: Full name, Email address, Phone number, Physical address, Payment or billing information. Users can browse the Site without providing any personal data. 2.2 Automatically Collected Information: When you access the Site, some technical information may be collected automatically, including: IP address (in anonymized or aggregated form), Browser type and version, Operating system, Device type, Pages visited and time spent on those pages, Referring website (if applicable). This information is collected for statistical and educational purposes only, to better understand how users interact with the Site."
+      },
+      {
+        "title": "3. Cookies and Tracking Technologies",
+        "description": "The Site may use cookies or similar technologies to: Ensure basic functionality, Improve performance and user experience, Analyze traffic and usage patterns. Cookies do not contain personally identifiable information. You can choose to disable cookies through your browser settings, though some parts of the Site may not function properly."
+      },
+      {
+        "title": "4. Use of Information",
+        "description": "The information collected is used solely to: Maintain and improve the Site, Monitor performance and detect technical issues, Analyze usage trends for learning purposes. We do not sell, rent, or trade any information to third parties."
+      },
+      {
+        "title": "5. Third-Party Services",
+        "description": "The Site may be hosted on third-party platforms (such as hosting providers or analytics services). These third parties may collect limited technical data in accordance with their own privacy policies. We have no control over and assume no responsibility for the content, privacy policies, or practices of third-party services."
+      },
+      {
+        "title": "6. Data Retention",
+        "description": "Collected technical data is retained only for as long as necessary to fulfill educational and analytical purposes and is then deleted or anonymized."
+      },
+      {
+        "title": "7. Data Security",
+        "description": "We take reasonable steps to protect collected information from unauthorized access, disclosure, or misuse. However, no method of data transmission or storage on the internet is completely secure, and absolute security cannot be guaranteed."
+      },
+      {
+        "title": "8. Children's Privacy",
+        "description": "This Site is not specifically directed at children under the age of 13. We do not knowingly collect personal data from children. If you believe that a child has provided personal information through this Site, please contact us so that the information can be removed."
+      },
+      {
+        "title": "9. Changes to This Privacy Policy",
+        "description": "We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated \"Last updated\" date."
+      },
+      {
+        "title": "10. Contact Information",
+        "description": "If you have questions or concerns about this Privacy Policy, you may contact the site owner through the contact section of the Site."
+      }
+    ]
+  }
+}
