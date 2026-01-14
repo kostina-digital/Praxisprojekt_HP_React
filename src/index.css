@@ -38,7 +38,16 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+.h2_style {
+  font-size: 1.5em;
+  line-height: 1.1;
+  text-align: center;
+  color: #242424;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 
+} 
 button {
   border-radius: 8px;
   border: 1px solid transparent;

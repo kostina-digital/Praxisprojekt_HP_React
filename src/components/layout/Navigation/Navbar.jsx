@@ -38,6 +38,7 @@ export default function Navbar() {
           <Link to="/">Home</Link>
         </li>
         <li className="relative">
+          <Link to="/characters">
           <button
             onClick={() => handleDropdownToggle('characters')}
             className="flex items-center gap-1"
@@ -47,6 +48,7 @@ export default function Navbar() {
               ▼
             </span>
           </button>
+          </Link>
           {openDropdown === 'characters' && (
             <ul className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-md py-2 min-w-[200px] z-10 border border-gray-200">
               <li>
@@ -92,6 +94,7 @@ export default function Navbar() {
           <Link to="/books">Books</Link>
         </li>
         <li className="relative">
+          <Link to="/houses">
           <button
             onClick={() => handleDropdownToggle('houses')}
             className="flex items-center gap-1"
@@ -101,15 +104,16 @@ export default function Navbar() {
               ▼
             </span>
           </button>
+          </Link>
           {openDropdown === 'houses' && (
             <ul className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-md py-2 min-w-[200px] z-10 border border-gray-200">
               <li>
                 <Link 
-                  to="/houses/griffindor" 
+                  to="/houses/gryffindor" 
                   className="block px-4 py-2 hover:bg-gray-100"
                   onClick={handleDropdownClose}
                 >
-                  Griffindor
+                  Gryffindor
                 </Link>
               </li>
               <li>

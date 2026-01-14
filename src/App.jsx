@@ -12,6 +12,8 @@ import NotFoundPage from './pages/NotFoundPage.jsx'
 import { CharactersFilterProvider } from './context/CharactersFilterContext.jsx'
 import TermsOfService from './pages/TermsOfService.jsx'
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
+import ContactUs from './pages/ContactUs.jsx'
+import HousePage from './pages/Houses/HousePage.jsx'
 
 export default function App() {
   // const [theme, setTheme] = useState('light');
@@ -27,11 +29,13 @@ export default function App() {
                 <Route path="/characters/students" element={<Characters />} />
                 <Route path="/books" element={<Books />} />
                 <Route path="/houses" element={<Houses />} />
+                <Route path="/houses/:houseName" element={<HousePage />} />
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
                 <Route path='/forgot-password' element={<ForgotPassword />} />
                 <Route path='/terms-of-service' element={<TermsOfService />} />
                 <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+                <Route path='/contact-us' element={<ContactUs />} />
                 <Route path='*' element={<NotFoundPage />} />
               </Routes>
             </MainLayout>
