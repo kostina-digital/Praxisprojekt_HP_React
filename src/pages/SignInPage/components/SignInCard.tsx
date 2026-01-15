@@ -161,7 +161,7 @@ export default function SignInCard() {
           Don&apos;t have an account?{' '}
           <span>
             <Link
-              href="\/sign-up"
+              href="/sign-up"
               variant="body2"
               sx={{ alignSelf: 'center' }}
             >

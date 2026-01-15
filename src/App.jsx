@@ -14,6 +14,7 @@ import TermsOfService from './pages/TermsOfService.jsx'
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
 import ContactUs from './pages/ContactUs.jsx'
 import HousePage from './pages/Houses/HousePage.jsx'
+import ProfilePage from './pages/ProfilePage/ProfilePage.jsx'
 
 export default function App() {
   // const [theme, setTheme] = useState('light');
@@ -36,6 +37,7 @@ export default function App() {
                 <Route path='/terms-of-service' element={<TermsOfService />} />
                 <Route path='/privacy-policy' element={<PrivacyPolicy />} />
                 <Route path='/contact-us' element={<ContactUs />} />
+                <Route path='/profile' element={<ProfilePage />} />
                 <Route path='*' element={<NotFoundPage />} />
               </Routes>
             </MainLayout>

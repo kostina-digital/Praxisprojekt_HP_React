@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useCharactersFilter } from '../../../context/CharactersFilterContext'
-
+import ProfileIcon from '../../../assets/images/profile.png'
 export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState(null)
   const navRef = useRef(null)
@@ -32,7 +32,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav ref={navRef}>
+    <nav ref={navRef} className="flex items-center justify-between">
       <ul className="flex items-center justify-center gap-4">
         <li>
           <Link to="/">Home</Link>
@@ -148,6 +148,7 @@ export default function Navbar() {
         </li>
       </ul>
       <div className="flex items-center gap-2">
+        <Link to="/profile"> <img src={ProfileIcon} alt="Profile" className="w-6 h-6 border-2 border-royal-blue-500 rounded-full" /></Link>
         <Link to="/sign-in">Sign In</Link>
         <Link to="/sign-up">Sign Up</Link>
       </div>
