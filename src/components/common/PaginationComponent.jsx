@@ -2,16 +2,16 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 /**
- * Переиспользуемый компонент пагинации
+ * Reusable pagination component
  * 
- * @param {number} totalItems - Общее количество элементов (обязательно)
- * @param {number} itemsPerPage - Количество элементов на странице (по умолчанию: 10)
- * @param {number} currentPage - Текущая страница (по умолчанию: 1)
- * @param {function} onPageChange - Callback функция, вызываемая при изменении страницы. Получает номер страницы (начиная с 1)
- * @param {string} color - Цвет пагинации: "primary", "secondary", "standard" (по умолчанию: "primary")
- * @param {string} size - Размер: "small", "medium", "large" (по умолчанию: "medium")
- * @param {string} variant - Вариант: "text", "outlined" (по умолчанию: "text")
- * @param {boolean} showFirstLastButton - Показывать ли кнопки первой/последней страницы (по умолчанию: false)
+ * @param {number} totalItems - Total number of items (required)
+ * @param {number} itemsPerPage - Number of items per page (default: 10)
+ * @param {number} currentPage - Current page (default: 1)
+ * @param {function} onPageChange - Callback function called when page changes. Receives page number (starting from 1)
+ * @param {string} color - Pagination color: "primary", "secondary", "standard" (default: "primary")
+ * @param {string} size - Size: "small", "medium", "large" (default: "medium")
+ * @param {string} variant - Variant: "text", "outlined" (default: "text")
+ * @param {boolean} showFirstLastButton - Whether to show first/last page buttons (default: false)
  */
 export default function PaginationComponent({ 
   totalItems, 
@@ -23,7 +23,7 @@ export default function PaginationComponent({
   variant = "text",
   showFirstLastButton = false
 }) {
-  // Валидация входных данных
+  // Validate input data
   if (!totalItems || totalItems <= 0) {
     return null;
   }
@@ -32,15 +32,15 @@ export default function PaginationComponent({
     return null;
   }
 
-  // Вычисляем количество страниц
+  // Calculate number of pages
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  // Не показываем пагинацию, если страниц меньше или равно 1
+  // Don't show pagination if pages count is less than or equal to 1
   if (totalPages <= 1) {
     return null;
   }
 
-  // Ограничиваем currentPage допустимыми значениями
+  // Limit currentPage to valid values
   const safeCurrentPage = Math.max(1, Math.min(currentPage, totalPages));
 
   const handleChange = (event, value) => {

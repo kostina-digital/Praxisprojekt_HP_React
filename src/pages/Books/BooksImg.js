@@ -1,4 +1,4 @@
-// Импортируем изображения для галереи
+// Import images for gallery
 import Book1 from '../../assets/images/book1.png';
 import Book2 from '../../assets/images/book2.png';
 import Book3 from '../../assets/images/book3.png';
@@ -7,7 +7,7 @@ import Book5 from '../../assets/images/book5.png';
 import Book6 from '../../assets/images/book6.png';
 import Book7 from '../../assets/images/book7.png';
 
-// Массив изображений для галереи
+// Array of images for gallery
 const BooksImg = [
   {
     original: Book1,

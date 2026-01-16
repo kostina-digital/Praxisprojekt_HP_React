@@ -25,7 +25,7 @@ export default function ColorModeSelect({ sx, toggleColorMode, mode }: ColorMode
     if (toggleColorMode) {
       toggleColorMode();
     } else {
-      // Fallback: перезагружаем страницу для применения темы
+      // Fallback: reload page to apply theme
       window.location.reload();
     }
   };

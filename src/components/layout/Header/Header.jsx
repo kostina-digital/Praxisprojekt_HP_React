@@ -4,7 +4,7 @@ import Navbar from '../Navigation/Navbar.jsx'
 
 export default function Header() {
   return (
-    <header className='flex items-center justify-between bg-green-500 text-white'>
+    <header className="flex items-center justify-between border-b-2 border-gray-200">
       <LogoContainer />
       <Navbar />
     </header>

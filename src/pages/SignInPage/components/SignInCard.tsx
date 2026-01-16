@@ -154,7 +154,12 @@ export default function SignInCard() {
           label="Remember me"
         />
         <ForgotPassword open={open} handleClose={handleClose} />
-        <Button type="submit" fullWidth variant="contained" onClick={validateInputs}>
+        <Button 
+          type="submit" 
+          fullWidth 
+          variant="contained" 
+          onClick={validateInputs}
+        >
           Sign in
         </Button>
         <Typography sx={{ textAlign: 'center' }}>

@@ -6,7 +6,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import placeholderImg from '../../assets/images/placeholder.webp';
 
 export default function CharacterCard({ character }) {
-  // Проверка на наличие character
+  // Check if character exists
   if (!character) {
     return null
   }

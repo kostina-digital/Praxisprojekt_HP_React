@@ -1,0 +1,128 @@
+{
+    "quiz": {
+      "id": "magic_house_quiz",
+      "title": "Which House Do You Belong To?",
+      "description": "Answer the questions and discover which magical house fits you best.",
+      "questions": [
+        {
+          "id": 1,
+          "text": "When facing a difficult challenge, what do you rely on most?",
+          "options": [
+            { "id": "A", "text": "My courage and determination", "house": "courage" },
+            { "id": "B", "text": "My intelligence and creativity", "house": "wisdom" },
+            { "id": "C", "text": "My loyalty and support for others", "house": "loyalty" },
+            { "id": "D", "text": "My ambition and desire to succeed", "house": "ambition" }
+          ]
+        },
+        {
+          "id": 2,
+          "text": "Which environment makes you feel most at home?",
+          "options": [
+            { "id": "A", "text": "A place full of action and adventure", "house": "courage" },
+            { "id": "B", "text": "A quiet space for learning and thinking", "house": "wisdom" },
+            { "id": "C", "text": "A warm and friendly community", "house": "loyalty" },
+            { "id": "D", "text": "A powerful place where goals are achieved", "house": "ambition" }
+          ]
+        },
+        {
+          "id": 3,
+          "text": "How do others usually describe you?",
+          "options": [
+            { "id": "A", "text": "Brave and bold", "house": "courage" },
+            { "id": "B", "text": "Smart and curious", "house": "wisdom" },
+            { "id": "C", "text": "Kind and reliable", "house": "loyalty" },
+            { "id": "D", "text": "Confident and driven", "house": "ambition" }
+          ]
+        },
+        {
+          "id": 4,
+          "text": "What would you choose as a magical companion?",
+          "options": [
+            { "id": "A", "text": "A fierce phoenix", "house": "courage" },
+            { "id": "B", "text": "A wise owl", "house": "wisdom" },
+            { "id": "C", "text": "A loyal badger", "house": "loyalty" },
+            { "id": "D", "text": "A clever serpent", "house": "ambition" }
+          ]
+        },
+        {
+          "id": 5,
+          "text": "What matters most to you?",
+          "options": [
+            { "id": "A", "text": "Honor and courage", "house": "courage" },
+            { "id": "B", "text": "Knowledge and truth", "house": "wisdom" },
+            { "id": "C", "text": "Friendship and trust", "house": "loyalty" },
+            { "id": "D", "text": "Power and achievement", "house": "ambition" }
+          ]
+        },
+        {
+          "id": 6,
+          "text": "How do you act in a team?",
+          "options": [
+            { "id": "A", "text": "I take the lead", "house": "courage" },
+            { "id": "B", "text": "I come up with strategies", "house": "wisdom" },
+            { "id": "C", "text": "I make sure everyone feels included", "house": "loyalty" },
+            { "id": "D", "text": "I focus on winning", "house": "ambition" }
+          ]
+        },
+        {
+          "id": 7,
+          "text": "Which spell would you prefer to master?",
+          "options": [
+            { "id": "A", "text": "A protection spell", "house": "courage" },
+            { "id": "B", "text": "A knowledge-revealing spell", "house": "wisdom" },
+            { "id": "C", "text": "A healing spell", "house": "loyalty" },
+            { "id": "D", "text": "A spell of influence", "house": "ambition" }
+          ]
+        },
+        {
+          "id": 8,
+          "text": "What is your biggest strength?",
+          "options": [
+            { "id": "A", "text": "Fearlessness", "house": "courage" },
+            { "id": "B", "text": "Intelligence", "house": "wisdom" },
+            { "id": "C", "text": "Loyalty", "house": "loyalty" },
+            { "id": "D", "text": "Ambition", "house": "ambition" }
+          ]
+        },
+        {
+          "id": 9,
+          "text": "How do you deal with failure?",
+          "options": [
+            { "id": "A", "text": "I face it head-on and try again", "house": "courage" },
+            { "id": "B", "text": "I analyze what went wrong", "house": "wisdom" },
+            { "id": "C", "text": "I ask for help and support", "house": "loyalty" },
+            { "id": "D", "text": "I turn it into motivation", "house": "ambition" }
+          ]
+        },
+        {
+          "id": 10,
+          "text": "What kind of legacy do you want to leave?",
+          "options": [
+            { "id": "A", "text": "A story of bravery", "house": "courage" },
+            { "id": "B", "text": "A legacy of wisdom", "house": "wisdom" },
+            { "id": "C", "text": "A legacy of kindness", "house": "loyalty" },
+            { "id": "D", "text": "A legacy of success", "house": "ambition" }
+          ]
+        }
+      ],
+      "results": {
+        "courage": {
+          "title": "House of Courage",
+          "description": "You are brave, bold, and never afraid to stand up for what you believe in. Adventure follows you wherever you go."
+        },
+        "wisdom": {
+          "title": "House of Wisdom",
+          "description": "Your mind is your greatest power. You value knowledge, creativity, and thoughtful decisions above all else."
+        },
+        "loyalty": {
+          "title": "House of Loyalty",
+          "description": "You are kind, dependable, and deeply value friendship. People trust you and feel safe around you."
+        },
+        "ambition": {
+          "title": "House of Ambition",
+          "description": "You are determined, strategic, and always striving for greatness. Success comes to those who dare to reach for it."
+        }
+      }
+    }
+  }
+  

@@ -5,32 +5,32 @@ import AutoFixHighRoundedIcon from '@mui/icons-material/AutoFixHighRounded';
 import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded';
 import SettingsSuggestRoundedIcon from '@mui/icons-material/SettingsSuggestRounded';
 import ThumbUpAltRoundedIcon from '@mui/icons-material/ThumbUpAltRounded';
-import { SitemarkIcon } from './CustomIcons';
+import signInMenuIcon1 from '../../../assets/images/signInMenuIcon1.png';
 
 const items = [
   {
     icon: <SettingsSuggestRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Adaptable performance',
+    title: <b>Personalized space</b>,
     description:
-      'Our product effortlessly adjusts to your needs, boosting efficiency and simplifying your tasks.',
+      'Access your personal dashboard where everything is tailored to you — from saved content to your activity across the platform. Your account brings everything together in one place.',
   },
   {
     icon: <ConstructionRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Built to last',
+    title: <b> Community & discussions</b>,
     description:
-      'Experience unmatched durability that goes above and beyond with lasting investment.',
+      'Join the forum to exchange ideas, share opinions, and connect with other users who share your interests. Communicate, discuss, and grow together.',
   },
   {
     icon: <ThumbUpAltRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Great user experience',
+    title: <b> Your personal blog </b>,
     description:
-      'Integrate our product into your routine with an intuitive and easy-to-use interface.',
+      'Create and explore blog content at your own pace — read, write, and engage with posts that matter to you. Your thoughts. Your voice. Your space.',
   },
   {
     icon: <AutoFixHighRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Innovative functionality',
+    title: <b> Favorites & saved content</b>,
     description:
-      'Stay ahead with features that set new standards, addressing your evolving needs better than the rest.',
+      'Like content across the site and easily find it later in your personal collection.Your favorites, always within reach.',
   },
 ];
 
@@ -40,7 +40,7 @@ export default function Content() {
       sx={{ flexDirection: 'column', alignSelf: 'center', gap: 4, maxWidth: 450 }}
     >
       <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-        <SitemarkIcon />
+        <img src={signInMenuIcon1} alt="signInMenuIcon1" />
       </Box>
       {items.map((item, index) => (
         <Stack key={index} direction="row" sx={{ gap: 2 }}>

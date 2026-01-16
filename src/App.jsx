@@ -13,8 +13,9 @@ import { CharactersFilterProvider } from './context/CharactersFilterContext.jsx'
 import TermsOfService from './pages/TermsOfService.jsx'
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
 import ContactUs from './pages/ContactUs.jsx'
-import HousePage from './pages/Houses/HousePage.jsx'
+import HousePage from './pages/Houses/HousePage/HousePage.jsx'
 import ProfilePage from './pages/ProfilePage/ProfilePage.jsx'
+import QuizPage from './pages/QuizPage/QuizPage.jsx'
 
 export default function App() {
   // const [theme, setTheme] = useState('light');
@@ -38,6 +39,7 @@ export default function App() {
                 <Route path='/privacy-policy' element={<PrivacyPolicy />} />
                 <Route path='/contact-us' element={<ContactUs />} />
                 <Route path='/profile' element={<ProfilePage />} />
+                <Route path='/quiz' element={<QuizPage />} />
                 <Route path='*' element={<NotFoundPage />} />
               </Routes>
             </MainLayout>

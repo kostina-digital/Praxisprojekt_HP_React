@@ -3,7 +3,8 @@ import LogoContainer from '../Header/LogoContainer.jsx'
 
 export default function Footer() {
   return (
-    <footer className='flex items-center justify-between'>
+    
+    <footer className='flex items-center justify-between border-t-2 border-gray-200'>
       <LogoContainer />
       <p>&copy; 2025 Hogwarts Paradise</p>
       <div className='flex items-center justify-center gap-4'>

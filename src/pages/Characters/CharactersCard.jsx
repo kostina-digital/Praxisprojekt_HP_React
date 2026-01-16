@@ -5,8 +5,8 @@ import CharacterCard from './CharacterCard.jsx'
 export default function CharactersCard() {
   const { characters, loading, error } = useCharacters()
   
-  // Показываем случайные 4 персонажа на главной странице
-  // Фильтруем только тех персонажей, у которых есть нормальная фотография (не пустая строка, не undefined)
+  // Show random 4 characters on home page
+  // Filter only characters with valid photo (not empty string, not undefined)
   const charactersWithPhoto = characters.filter(
     (c) => c.image && c.image.trim()
   );

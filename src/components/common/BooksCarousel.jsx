@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 
 /**
- * Переиспользуемый компонент карусели для книг
- * Показывает несколько элементов одновременно
+ * Reusable carousel component for books
+ * Shows multiple items simultaneously
  * 
- * @param {Array} items - Массив объектов с изображениями
- * @param {number} itemsToShow - Количество элементов для отображения одновременно (по умолчанию: 5)
- * @param {boolean} autoPlay - Автоматическая прокрутка (по умолчанию: true)
- * @param {number} slideInterval - Интервал автопрокрутки в мс (по умолчанию: 3000)
- * @param {boolean} showNav - Показывать ли стрелки навигации (по умолчанию: true)
+ * @param {Array} items - Array of objects with images
+ * @param {number} itemsToShow - Number of items to display simultaneously (default: 5)
+ * @param {boolean} autoPlay - Automatic scrolling (default: true)
+ * @param {number} slideInterval - Auto-scroll interval in ms (default: 3000)
+ * @param {boolean} showNav - Whether to show navigation arrows (default: true)
  */
 export default function BooksCarousel({ 
   items, 
@@ -20,17 +20,17 @@ export default function BooksCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Вычисляем максимальный индекс
+  // Calculate maximum index
   const maxIndex = Math.max(0, items.length - itemsToShow);
 
-  // Автопрокрутка
+  // Auto-scroll
   useEffect(() => {
     if (!autoPlay || isPaused || maxIndex <= 0) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => {
         if (prevIndex >= maxIndex) {
-          return 0; // Возвращаемся к началу
+          return 0; // Return to beginning
         }
         return prevIndex + 1;
       });
@@ -51,10 +51,10 @@ export default function BooksCarousel({
     );
   };
 
-  // Получаем элементы для отображения
+  // Get items to display
   const visibleItems = items.slice(currentIndex, currentIndex + itemsToShow);
 
-  // Если элементов меньше itemsToShow, показываем все
+  // If items count is less than itemsToShow, show all
   if (items.length <= itemsToShow) {
     return (
       <div className="relative">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import CharacterCard from './CharacterCard.jsx'
 import { useCharacters } from '../../hooks/useCharacters.js'
 import { useCharactersFilter } from '../../context/CharactersFilterContext.jsx'
@@ -7,14 +7,15 @@ import PaginationComponent from '../../components/common/PaginationComponent.jsx
 
 export default function Characters() {
   const location = useLocation()
+  const [searchParams] = useSearchParams()
   const { characters, staff, students, loading, error } = useCharacters()
   const { charactersStyle, handleCharactersStyleChange } = useCharactersFilter()
   const [house, setHouse] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(12) // Количество элементов на странице
-  const [showAll, setShowAll] = useState(false) // Флаг для "показать все"
+  const [itemsPerPage, setItemsPerPage] = useState(12) // Number of items per page
+  const [showAll, setShowAll] = useState(false) // Flag for "show all"
   
-  // Определяем тип персонажей на основе URL при первой загрузке
+  // Determine character type based on URL on first load
   useEffect(() => {
     if (location.pathname === '/characters/staff') {
       handleCharactersStyleChange('onlyStaff')
@@ -24,6 +25,14 @@ export default function Characters() {
       handleCharactersStyleChange('allCharacters')
     }
   }, [location.pathname, handleCharactersStyleChange])
+
+  // Read house from URL parameters
+  useEffect(() => {
+    const houseParam = searchParams.get('house')
+    if (houseParam) {
+      setHouse(houseParam.toLowerCase())
+    }
+  }, [searchParams])
   
   const handleHouseChange = (e) => {
     setHouse(e.target.value)
@@ -42,7 +51,7 @@ export default function Characters() {
       setShowAll(false)
       setItemsPerPage(Number(value))
     }
-    setCurrentPage(1) // Сбрасываем на первую страницу при изменении количества
+    setCurrentPage(1) // Reset to first page when changing item count
   }
 
   function getFilteredCharacters() {
@@ -67,26 +76,26 @@ export default function Characters() {
 
   const filteredCharacters = getFilteredCharacters()
 
-  // Обновляем itemsPerPage при изменении количества отфильтрованных элементов (если выбрано "все")
+  // Update itemsPerPage when filtered items count changes (if "all" is selected)
   useEffect(() => {
     if (showAll) {
       setItemsPerPage(filteredCharacters.length)
     }
   }, [filteredCharacters.length, showAll])
 
-  // Вычисляем индексы для текущей страницы
+  // Calculate indices for current page
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentCharacters = filteredCharacters.slice(indexOfFirstItem, indexOfLastItem)
 
-  // Сбрасываем на первую страницу при изменении фильтров
+  // Reset to first page when filters change
   useEffect(() => {
     setCurrentPage(1)
   }, [house, charactersStyle])
 
   const handlePageChange = (page) => {
     setCurrentPage(page)
-    // Прокрутка вверх при смене страницы
+    // Scroll to top when changing page
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 

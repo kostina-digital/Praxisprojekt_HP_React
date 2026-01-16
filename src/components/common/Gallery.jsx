@@ -4,21 +4,21 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import defaultGalleryImages from "./galleryImages.js";
 
 /**
- * Переиспользуемый компонент галереи изображений
+ * Reusable image gallery component
  * 
- * @param {Array} images - Массив объектов изображений. Каждый объект должен содержать:
- *   - original: путь к оригинальному изображению
- *   - thumbnail: путь к миниатюре (опционально)
- *   - description: описание изображения (опционально)
- * @param {boolean} showBullets - Показывать ли кружочки пагинации (по умолчанию: true)
- * @param {boolean} infinite - Бесконечная прокрутка (по умолчанию: true)
- * @param {boolean} showThumbnails - Показывать ли миниатюры (по умолчанию: false)
- * @param {boolean} showFullscreenButton - Показывать ли кнопку полноэкранного режима (по умолчанию: true)
- * @param {boolean} showNav - Показывать ли стрелки навигации (по умолчанию: true)
- * @param {number} slideDuration - Длительность анимации перехода в мс (по умолчанию: 450)
- * @param {number} slideInterval - Интервал автопрокрутки в мс (по умолчанию: 3000)
- * @param {string} thumbnailPosition - Позиция миниатюр: "bottom", "top", "left", "right" (по умолчанию: "bottom")
- * @param {boolean} autoPlay - Автоматическая прокрутка (по умолчанию: true)
+ * @param {Array} images - Array of image objects. Each object should contain:
+ *   - original: path to original image
+ *   - thumbnail: path to thumbnail (optional)
+ *   - description: image description (optional)
+ * @param {boolean} showBullets - Whether to show pagination dots (default: true)
+ * @param {boolean} infinite - Infinite scrolling (default: true)
+ * @param {boolean} showThumbnails - Whether to show thumbnails (default: false)
+ * @param {boolean} showFullscreenButton - Whether to show fullscreen button (default: true)
+ * @param {boolean} showNav - Whether to show navigation arrows (default: true)
+ * @param {number} slideDuration - Transition animation duration in ms (default: 450)
+ * @param {number} slideInterval - Auto-scroll interval in ms (default: 3000)
+ * @param {string} thumbnailPosition - Thumbnail position: "bottom", "top", "left", "right" (default: "bottom")
+ * @param {boolean} autoPlay - Automatic scrolling (default: true)
  */
 class Gallery extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class Gallery extends React.Component {
     };
     this._toggleShowVideo = this._toggleShowVideo.bind(this);
 
-    // Используем изображения из props или дефолтные
+    // Use images from props or default ones
     this.images = props.images || defaultGalleryImages;
   }
 

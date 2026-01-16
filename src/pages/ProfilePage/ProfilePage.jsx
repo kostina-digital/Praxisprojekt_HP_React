@@ -1,11 +1,8 @@
-
-
-
 export default function ProfilePage() {
     return (
         <div>
-            <h1>Hello, {user.name}!</h1>
-            <p> content of the profile page </p>
+            <h1>Hello!</h1>
+            <p>Content of the profile page</p>
         </div>
     )
 }
