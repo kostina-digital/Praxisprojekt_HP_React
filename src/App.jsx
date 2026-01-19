@@ -18,6 +18,9 @@ import HousePage from "./pages/Houses/HousePage/HousePage.jsx";
 import ProfilePage from "./pages/ProfilePage/ProfilePage.jsx";
 import QuizPage from "./pages/QuizPage/QuizPage.jsx";
 import Firebase from "../config/firebase.js";
+import ForumPage from "./pages/ForumPage/ForumPage.jsx";
+import TopicPage from "./pages/ForumPage/TopicPage.jsx";
+import CreateTopic from "./pages/ForumPage/CreateTopic.jsx";
 
 export default function App() {
   return (
@@ -41,6 +44,9 @@ export default function App() {
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/quiz" element={<QuizPage />} />
+              <Route path="/forum" element={<ForumPage />} />
+              <Route path="/forum/topic/:topicId" element={<TopicPage />} />
+              <Route path="/forum/create-topic" element={<CreateTopic />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </MainLayout>
