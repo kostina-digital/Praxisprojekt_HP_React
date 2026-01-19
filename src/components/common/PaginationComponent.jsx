@@ -59,6 +59,21 @@ export default function PaginationComponent({
         variant={variant}
         showFirstButton={showFirstLastButton}
         showLastButton={showFirstLastButton}
+        sx={{
+          '& .MuiPaginationItem-root.Mui-selected': {
+            backgroundColor: '#646cff',
+            color: '#fff',
+            '&:hover': {
+              backgroundColor: '#646cff',
+            },
+          },
+          '& .MuiPaginationItem-root': {
+            color: '#0B1C2D',
+            '&:hover': {
+              backgroundColor: 'rgba(100, 108, 255, 0.1)',
+            },
+          },
+        }}
       />
     </Stack>
   );

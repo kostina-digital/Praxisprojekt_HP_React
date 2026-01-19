@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout.jsx";
 import Home from "./pages/Home.jsx";
 import Characters from "./pages/Characters/Characters.jsx";
-import Books from "./pages/Books/Books.jsx";
 import Houses from "./pages/Houses/Houses.jsx";
 import SignIn from "./pages/SignInPage/SignInSide";
 import SignUp from "./pages/SignUp/SignUp";
@@ -33,7 +32,6 @@ export default function App() {
               <Route path="/characters" element={<Characters />} />
               <Route path="/characters/staff" element={<Characters />} />
               <Route path="/characters/students" element={<Characters />} />
-              <Route path="/books" element={<Books />} />
               <Route path="/houses" element={<Houses />} />
               <Route path="/houses/:houseName" element={<HousePage />} />
               <Route path="/sign-in" element={<SignIn />} />

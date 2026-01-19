@@ -31,7 +31,7 @@ export default function CharacterCard({ character }) {
           alt={character.name}
           sx={{
             width: '100%',
-            height: '20vh',
+            height: '30vh',
             objectFit: 'cover'
           }}
         />

@@ -9,7 +9,7 @@ export default function HouseCardSideMenu({ houses = [] }) {
             <img 
               src={house.image} 
               alt={house.name} 
-              className="w-full h-[25vh] max-h-[25vh] object-contain border-2 border-royal-blue-500 rounded-md m-0 p-0" 
+              className="w-full h-[30vh] max-h-[30vh] object-cover border-2 border-royal-blue-500 rounded-md m-0 p-0" 
             />
           </div>
         </Link>

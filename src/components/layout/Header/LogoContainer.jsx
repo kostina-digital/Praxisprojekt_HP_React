@@ -6,7 +6,7 @@ export default function LogoContainer() {
     <Link to="/">
     <div className='flex items-center justify-center'>
       <img src={LogoImg} alt="Logo" className=' w-20vw h-auto logo' />
-      <p className='text-2xl font-bold'>Hogwarts Paradise</p>
+      <p className='text-2xl font-bold text-[#0B1C2D]'>Hogwarts Paradise</p>
     </div>
     </Link>
   )

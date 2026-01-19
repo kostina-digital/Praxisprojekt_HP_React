@@ -25,7 +25,7 @@ export default function HousePage() {
   return (
     <>
       <HousePageHero house={house} />
-      <div className="flex items-center gap-4 my-8">
+      <div className="flex items-start gap-8 my-8">
         <div className="w-1/4 h-auto flex flex-col items-start justify-start">
           <HouseCardSideMenu houses={otherHouses} className="w-1/4 h-auto" />
         </div>
