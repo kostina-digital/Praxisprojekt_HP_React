@@ -13,7 +13,7 @@ export default function TopicCard({ topic }) {
             <span>•</span>
             <span>
               {topic.createdAt 
-                ? new Date(topic.createdAt.seconds * 1000).toLocaleDateString()
+                ? new Date(topic.createdAt).toLocaleDateString()
                 : 'Recently'}
             </span>
             <span>•</span>
@@ -27,14 +27,6 @@ export default function TopicCard({ topic }) {
         </div>
       </div>
       <div className="flex items-center gap-4 pt-4 border-t">
-        <div className="flex items-center gap-2">
-          <button className="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200">
-            👍 {topic.likes || 0}
-          </button>
-          <button className="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">
-            👎 {topic.dislikes || 0}
-          </button>
-        </div>
         <div className="ml-auto text-sm text-gray-500">
           {topic.repliesCount || 0} replies
         </div>

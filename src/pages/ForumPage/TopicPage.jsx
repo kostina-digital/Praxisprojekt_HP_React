@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import TopicCard from './TopicCard.jsx';
 import ReplyCard from './ReplyCard.jsx';
-import { auth } from '../../../config/firebase';
+import { auth, realtimeDb } from '../../../config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { ref, onValue, off, push, set, update } from 'firebase/database';
 
 export default function TopicPage() {
   const { topicId } = useParams();
@@ -24,43 +25,66 @@ export default function TopicPage() {
   }, []);
 
   useEffect(() => {
-    // In real app, fetch topic and replies from Firestore
-    // For now, using mock data
-    const loadTopicData = () => {
-      const mockTopic = {
-        id: topicId,
-        title: 'Who is your favorite character?',
-        content: "Let's discuss which character is the most relatable to you and why! I personally love Hermione because of her intelligence and determination.",
-        author: 'HermioneG',
-        createdAt: { seconds: Date.now() / 1000 - 86400 },
-        views: 42,
-        likes: 15,
-        dislikes: 2,
-        repliesCount: 2
-      };
-
-      const mockReplies = [
-        {
-          id: '1',
-          author: 'HarryP',
-          content: 'I agree! Hermione is definitely one of the best characters. Her loyalty and bravery are unmatched.',
-          createdAt: { seconds: Date.now() / 1000 - 3600 }
-        },
-        {
-          id: '2',
-          author: 'RonW',
-          content: 'For me, it\'s Ron. He shows that you can be brave even when you\'re scared, and his humor makes everything better.',
-          createdAt: { seconds: Date.now() / 1000 - 7200 }
-        }
-      ];
-
-      setTopic(mockTopic);
-      setReplies(mockReplies);
+    // Load topic from Realtime Database
+    const topicRef = ref(realtimeDb, `forum/topics/${topicId}`);
+    
+    const unsubscribeTopic = onValue(topicRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setTopic({ id: topicId, ...data });
+        
+      } else {
+        setTopic(null);
+      }
       setLoading(false);
-    };
+    }, (error) => {
+      console.error('Error loading topic:', error);
+      setLoading(false);
+    });
 
-    loadTopicData();
-  }, [topicId]);
+    // Load replies from Realtime Database
+    const repliesRef = ref(realtimeDb, `forum/topics/${topicId}/replies`);
+    
+    const unsubscribeReplies = onValue(repliesRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        // Convert object to array and sort by createdAt (oldest first)
+        const repliesArray = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        })).sort((a, b) => {
+          const timeA = a.createdAt || 0;
+          const timeB = b.createdAt || 0;
+          return timeA - timeB; // Oldest first
+        });
+        setReplies(repliesArray);
+        
+      } else {
+        setReplies([]);
+      }
+    }, (error) => {
+      console.error('Error loading replies:', error);
+    });
+
+    // Increment views when topic is loaded (only once per page load)
+    if (topicId) {
+      const topicRef = ref(realtimeDb, `forum/topics/${topicId}`);
+      onValue(topicRef, (snapshot) => {
+        const topicData = snapshot.val();
+        if (topicData) {
+          const currentViews = topicData.views || 0;
+          update(topicRef, {
+            views: currentViews + 1
+          });
+        }
+      }, { onlyOnce: true });
+    }
+
+    return () => {
+      off(topicRef);
+      off(repliesRef);
+    };
+  }, [topicId, currentUser]);
 
   const handleReplySubmit = async (e) => {
     e.preventDefault();
@@ -78,49 +102,41 @@ export default function TopicPage() {
     }
 
     try {
-      // In real app, save reply to Firestore
-      // await addDoc(collection(db, 'topics', topicId, 'replies'), {
-      //   content: trimmedContent,
-      //   author: currentUser.email?.split('@')[0] || 'User',
-      //   authorEmail: currentUser.email,
-      //   createdAt: serverTimestamp(),
-      //   topicId: topicId
-      // });
-
-      const newReply = {
-        id: `reply-${Date.now()}`,
+      // Save reply to Realtime Database
+      const repliesRef = ref(realtimeDb, `forum/topics/${topicId}/replies`);
+      const newReplyRef = push(repliesRef);
+      
+      const replyData = {
         author: currentUser.email?.split('@')[0] || currentUser.displayName || 'User',
+        authorEmail: currentUser.email,
         content: trimmedContent,
-        createdAt: { seconds: Math.floor(Date.now() / 1000) },
-        replyingTo: replyingTo?.id || null, // Store parent reply ID if replying to a comment
-        replyingToAuthor: replyingTo?.author || null // Store parent author for display
+        createdAt: Date.now(),
+        replyingTo: replyingTo?.id || null,
+        replyingToAuthor: replyingTo?.author || null,
+        replyingToContent: replyingTo?.content || null // Store quoted content
       };
 
-      console.log('Adding new reply:', newReply);
-
-      // Update replies state using functional update
-      setReplies(prevReplies => {
-        const updated = [...prevReplies, newReply];
-        console.log('Updated replies:', updated);
-        return updated;
+      await set(newReplyRef, replyData);
+      
+      // Update topic replies count and lastReply timestamp
+      const topicRef = ref(realtimeDb, `forum/topics/${topicId}`);
+      const currentRepliesCount = topic?.repliesCount || 0;
+      await update(topicRef, {
+        repliesCount: currentRepliesCount + 1,
+        lastReply: Date.now()
       });
       
       // Clear form and replyingTo
       setReplyContent('');
       setReplyingTo(null);
       
-      // Update topic replies count
-      if (topic) {
-        setTopic(prevTopic => ({
-          ...prevTopic,
-          repliesCount: (prevTopic.repliesCount || 0) + 1
-        }));
-      }
+      console.log('Reply posted successfully');
     } catch (error) {
       console.error('Error posting reply:', error);
       alert('Error posting reply. Please try again.');
     }
   };
+
 
   if (loading) {
     return <div className="p-8 text-center">Loading topic...</div>;
@@ -167,18 +183,28 @@ export default function TopicPage() {
         {currentUser ? (
           <form id="reply-form" onSubmit={handleReplySubmit} className="mt-6 bg-gray-50 p-4 rounded">
             {replyingTo && (
-              <div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600">Replying to:</span>
-                  <span className="font-semibold text-blue-700">{replyingTo.author}</span>
+              <div className="mb-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-600">Replying to:</span>
+                    <span className="font-semibold text-blue-700">{replyingTo.author}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setReplyingTo(null);
+                      setReplyContent('');
+                    }}
+                    className="text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    ✕ Cancel
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setReplyingTo(null)}
-                  className="text-sm text-gray-500 hover:text-gray-700"
-                >
-                  ✕ Cancel
-                </button>
+                <div className="bg-white p-3 rounded border border-blue-200">
+                  <p className="text-sm text-gray-700 italic">
+                    "{replyingTo.content}"
+                  </p>
+                </div>
               </div>
             )}
             <div className="mb-4">

@@ -28,6 +28,7 @@ if (typeof window !== 'undefined') {
 }
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const realtimeDb = getDatabase(app);
 
 export default class Firebase {
     constructor() {

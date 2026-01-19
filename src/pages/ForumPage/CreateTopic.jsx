@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../../../config/firebase';
+import { auth, realtimeDb } from '../../../config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { ref, push, set } from 'firebase/database';
 
 export default function CreateTopic() {
   const navigate = useNavigate();
@@ -35,22 +36,24 @@ export default function CreateTopic() {
       return;
     }
 
-    // In real app, save topic to Firestore
+    // Save topic to Realtime Database
     try {
-      // await addDoc(collection(db, 'topics'), {
-      //   title,
-      //   content,
-      //   author: currentUser.email?.split('@')[0] || 'User',
-      //   authorEmail: currentUser.email,
-      //   createdAt: serverTimestamp(),
-      //   views: 0,
-      //   likes: 0,
-      //   dislikes: 0,
-      //   repliesCount: 0
-      // });
+      const topicsRef = ref(realtimeDb, 'forum/topics');
+      const newTopicRef = push(topicsRef);
+      
+      const topicData = {
+        title: title.trim(),
+        content: content.trim(),
+        author: currentUser.email?.split('@')[0] || currentUser.displayName || 'User',
+        authorEmail: currentUser.email,
+        createdAt: Date.now(),
+        views: 0,
+        repliesCount: 0
+      };
 
-      // For now, just navigate back
-      alert('Topic created successfully! (In real app, this would save to Firestore)');
+      await set(newTopicRef, topicData);
+      
+      alert('Topic created successfully!');
       navigate('/forum');
     } catch (error) {
       console.error('Error creating topic:', error);

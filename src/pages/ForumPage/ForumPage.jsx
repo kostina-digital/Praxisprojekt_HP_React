@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../../../config/firebase';
+import { auth, realtimeDb } from '../../../config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { ref, onValue, off } from 'firebase/database';
 import TopicPreviewCard from './TopicPreviewCard.jsx';
 
 export default function ForumPage() {
@@ -19,43 +20,36 @@ export default function ForumPage() {
   }, []);
 
   useEffect(() => {
-    // In real app, fetch topics from Firestore
-    // For now, using mock data
-    const mockTopics = [
-      {
-        id: '1',
-        title: 'Who is your favorite character?',
-        content: "Let's discuss which character is the most relatable to you and why!",
-        author: 'HermioneG',
-        createdAt: { seconds: Date.now() / 1000 - 86400 },
-        repliesCount: 5,
-        views: 42,
-        lastReply: { seconds: Date.now() / 1000 - 3600 }
-      },
-      {
-        id: '2',
-        title: 'Best Harry Potter book?',
-        content: 'Which book in the series do you think is the best and why?',
-        author: 'BookLover',
-        createdAt: { seconds: Date.now() / 1000 - 172800 },
-        repliesCount: 12,
-        views: 89,
-        lastReply: { seconds: Date.now() / 1000 - 7200 }
-      },
-      {
-        id: '3',
-        title: 'Hogwarts House Discussion',
-        content: 'What house do you belong to and why? Share your sorting experience!',
-        author: 'GryffindorPride',
-        createdAt: { seconds: Date.now() / 1000 - 259200 },
-        repliesCount: 23,
-        views: 156,
-        lastReply: { seconds: Date.now() / 1000 - 1800 }
+    // Fetch topics from Realtime Database
+    const topicsRef = ref(realtimeDb, 'forum/topics');
+    
+    const unsubscribe = onValue(topicsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        // Convert object to array and sort by createdAt (newest first)
+        const topicsArray = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key],
+          // Calculate lastReply from replies if not set
+          lastReply: data[key].lastReply || null
+        })).sort((a, b) => {
+          const timeA = a.createdAt || 0;
+          const timeB = b.createdAt || 0;
+          return timeB - timeA; // Newest first
+        });
+        setTopics(topicsArray);
+      } else {
+        setTopics([]);
       }
-    ];
+      setLoading(false);
+    }, (error) => {
+      console.error('Error loading topics:', error);
+      setLoading(false);
+    });
 
-    setTopics(mockTopics);
-    setLoading(false);
+    return () => {
+      off(topicsRef);
+    };
   }, []);
 
   if (loading) {

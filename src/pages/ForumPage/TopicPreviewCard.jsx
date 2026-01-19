@@ -23,9 +23,9 @@ export default function TopicPreviewCard({ topic }) {
             <span>•</span>
             <span>
               {topic.lastReply 
-                ? new Date(topic.lastReply.seconds * 1000).toLocaleDateString()
+                ? new Date(topic.lastReply).toLocaleDateString()
                 : topic.createdAt 
-                  ? new Date(topic.createdAt.seconds * 1000).toLocaleDateString()
+                  ? new Date(topic.createdAt).toLocaleDateString()
                   : 'Recently'}
             </span>
           </div>
