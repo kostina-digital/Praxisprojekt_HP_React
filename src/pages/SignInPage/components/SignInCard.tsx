@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../../config/firebase';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -47,18 +49,6 @@ export default function SignInCard() {
     setOpen(false);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;
     const password = document.getElementById('password') as HTMLInputElement;
@@ -84,6 +74,34 @@ export default function SignInCard() {
     }
 
     return isValid;
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Always prevent default form submission
+    
+    // First, validate the data
+    const isValid = validateInputs();
+    
+    if (!isValid) {
+      console.log('Validation failed - cannot sign in');
+      return; // If validation failed, exit
+    }
+    
+    // If validation passed, get data and sign in
+    const data = new FormData(event.currentTarget);
+    const email = data.get('email') as string;
+    const password = data.get('password') as string;
+    
+    console.log('handleSubmit - email:', email);
+    console.log('handleSubmit - password:', password ? '***' : 'empty');
+    
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log('Signed in successfully');
+      alert('Signed in successfully');
+    } catch (error) {
+      console.error('Error signing in:', error);
+    }
   };
 
   return (
@@ -142,7 +160,6 @@ export default function SignInCard() {
             type="password"
             id="password"
             autoComplete="current-password"
-            autoFocus
             required
             fullWidth
             variant="outlined"
@@ -157,8 +174,47 @@ export default function SignInCard() {
         <Button 
           type="submit" 
           fullWidth 
-          variant="contained" 
-          onClick={validateInputs}
+          variant="contained"
+          onClick={async (e) => {
+            e.preventDefault();
+            // Validate email and password (similar to SignUp)
+            let valid = true;
+
+            const emailInput = document.getElementById('email') as HTMLInputElement;
+            const passwordInput = document.getElementById('password') as HTMLInputElement;
+
+            if (!emailInput.value || !/\S+@\S+\.\S+/.test(emailInput.value)) {
+              setEmailError(true);
+              setEmailErrorMessage('Please enter a valid email address.');
+              valid = false;
+            } else {
+              setEmailError(false);
+              setEmailErrorMessage('');
+            }
+
+            if (!passwordInput.value || passwordInput.value.length < 6) {
+              setPasswordError(true);
+              setPasswordErrorMessage('Password must be at least 6 characters long.');
+              valid = false;
+            } else {
+              setPasswordError(false);
+              setPasswordErrorMessage('');
+            }
+
+            if (!valid) return;
+
+            // Authenticate via Firebase
+            try {
+              const { signInWithEmailAndPassword } = await import('firebase/auth');
+              const { auth } = await import('../../../../config/firebase');
+              await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+              // Redirect to profile page
+              window.location.href = '/profile';
+            } catch (err: any) {
+              setPasswordError(true);
+              setPasswordErrorMessage('Failed to sign in. Please check your credentials.');
+            }
+          }}
         >
           Sign in
         </Button>
@@ -195,5 +251,6 @@ export default function SignInCard() {
         </Button>
       </Box>
     </Card>
+    
   );
 }

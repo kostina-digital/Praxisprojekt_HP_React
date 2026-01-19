@@ -17,6 +17,9 @@ import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './components/CustomIcons';
 import Content from '../SignInPage/components/Content';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../config/firebase';
+import { createUser } from '../../firebase/users';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -81,18 +84,41 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     return isValid;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (nameError || emailError || passwordError) {
-      event.preventDefault();
-      return;
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Always prevent default form submission
+    
+    // First, validate the data
+    const isValid = validateInputs();
+    
+    if (!isValid) {
+      console.log('Validation failed - cannot create user');
+      return; // If validation failed, exit
     }
+    
+    // If validation passed, get data and create user
     const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const email = data.get('email') as string;
+    const password = data.get('password') as string;
+    const name = data.get('name') as string;
+    
+    console.log('handleSubmit - email:', email);
+    console.log('handleSubmit - password:', password ? '***' : 'empty');
+    console.log('handleSubmit - name:', name);
+    
+    try {
+      // Create user in Firebase Auth
+      await createUserWithEmailAndPassword(auth, email, password);
+      console.log('User created in Firebase Auth successfully');
+      
+      // Create user record in Firestore
+      await createUser(email, password, name);
+      console.log('User data saved to Firestore successfully');
+      
+      // alert('User created successfully');
+    } catch (err) {
+      console.error('Error creating user:', err);
+      // alert('Error creating user'); 
+    }
   };
 
   return (
@@ -217,7 +243,6 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  onClick={validateInputs}
                 >
                   Sign up
                 </Button>

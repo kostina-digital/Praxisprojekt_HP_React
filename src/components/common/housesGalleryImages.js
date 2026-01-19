@@ -6,10 +6,6 @@ import wallpaper5 from '../../assets/images/wallpaper5.jpg'
 import wallpaper6 from '../../assets/images/wallpaper6.jpg'
 import wallpaper7 from '../../assets/images/wallpaper7.jpg'
 
-// For correct display in Gallery component,
-// the array must contain objects with original and thumbnail keys,
-// as implemented in galleryImages.js
-
 const housesGalleryImages = [
   {
     original: wallpaper1,

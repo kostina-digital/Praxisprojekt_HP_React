@@ -35,7 +35,6 @@ export default function PaginationComponent({
   // Calculate number of pages
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  // Don't show pagination if pages count is less than or equal to 1
   if (totalPages <= 1) {
     return null;
   }

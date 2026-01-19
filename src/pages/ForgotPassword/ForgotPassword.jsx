@@ -7,7 +7,7 @@ export default function ForgotPassword() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Password reset requested for:', email)
+    // Handle password reset request here
     setSubmitted(true)
   }
 

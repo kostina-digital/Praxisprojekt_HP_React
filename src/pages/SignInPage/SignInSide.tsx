@@ -4,6 +4,7 @@ import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
 import SignInCard from './components/SignInCard';
 import Content from './components/Content';
+import { auth } from '../../../config/firebase';
 
 export default function SignInSide(props: { disableCustomTheme?: boolean }) {
   return (
