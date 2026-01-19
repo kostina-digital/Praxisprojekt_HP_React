@@ -44,7 +44,7 @@ export default function ProfilePage() {
                         alert('Error signing out. Please try again.');
                     }
                 }}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                className="px-4 py-2 bg-blue-300 text-white rounded hover:bg-blue-700 transition-colors"
             >
                 Sign Out
             </button>

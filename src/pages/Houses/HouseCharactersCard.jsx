@@ -12,7 +12,7 @@ export default function HouseCharactersCard({ house }) {
       character.house.toLowerCase() === house?.toLowerCase()
   )
   // Take first 3 characters
-  const featuredCharacters = houseCharacters.slice(0, 3)
+  const featuredCharacters = houseCharacters.slice(0, 6)
   
   if (loading) {
     return <div className="text-center py-4">Loading characters...</div>
