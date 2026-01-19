@@ -109,9 +109,10 @@ export default function Characters() {
 
   return (
     <>
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 mb-8 mt-8'>
       <h1>Characters</h1>
-      <select value={house} onChange={handleHouseChange}>
+      <div className='flex gap-4'>
+      <select className='select_style' value={house} onChange={handleHouseChange}>
         <option value="all">All</option>
         <option value="gryffindor">Gryffindor</option>
         <option value="hufflepuff">Hufflepuff</option>
@@ -119,26 +120,28 @@ export default function Characters() {
         <option value="slytherin">Slytherin</option>
       </select>
 
-      <select value={charactersStyle} onChange={handleSelectChange}>
+      <select className='select_style'value={charactersStyle} onChange={handleSelectChange}>
         <option value="allCharacters">All Characters</option>
         <option value="onlyStaff">Only Staff</option>
         <option value="onlyStudents">Only Students</option>
       </select>
 
-      <select value={showAll ? 'all' : itemsPerPage} onChange={handleItemsPerPageChange}>
+      <select className='select_style' value={showAll ? 'all' : itemsPerPage} onChange={handleItemsPerPageChange}>
         <option value="12">12 per page</option>
         <option value="24">24 per page</option>
         <option value="48">48 per page</option>
         <option value="all">All</option>
       </select>
 
+      </div>
+
       <div className='flex flex-col gap-4'>
-        <div className='flex flex-wrap gap-4'>
+        <div className='flex flex-wrap  justify-between'>
           {currentCharacters.map(character => (
             <CharacterCard key={character.id || character.name} character={character} />
           ))}
         </div>
-        <PaginationComponent 
+        <PaginationComponent
           totalItems={filteredCharacters.length}
           itemsPerPage={itemsPerPage}
           currentPage={currentPage}

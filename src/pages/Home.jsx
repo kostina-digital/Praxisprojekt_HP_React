@@ -3,6 +3,7 @@ import galleryImages from '../components/common/galleryImages.js'
 import HouseCard from './Houses/HouseCard.jsx'
 import CharactersCard from './Characters/CharactersCard.jsx'
 import QuizSection from './QuizPage/QuizSection.jsx'
+import ForumSection from './ForumPage/ForumSection.jsx'
 
 
 
@@ -13,6 +14,7 @@ export default function Home() {
     <HouseCard /> 
     <QuizSection />
     <CharactersCard />
+    <ForumSection />
     
     </div>
   )

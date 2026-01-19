@@ -14,20 +14,24 @@ export default function CharacterCard({ character }) {
   return (
     <Card
       sx={{
-        width: 250,
-        m: 1,
-        flex: '0 0 0 23%',
-        boxSizing: 'border-box'
+        width: '23%',
+        minWidth: 220,
+        maxWidth: 330,
+        margin: '1%',
+        display: 'flex',
+        flexDirection: 'column',
+        boxSizing: 'border-box',
+        flex: '1 0 21%', // makes 4 in a row with gap
       }}
     >
-      <CardActionArea>
+      <CardActionArea sx={{ height: '100%' }}>
         <CardMedia
           component="img"
           image={character.image && character.image.trim() ? character.image : placeholderImg}
           alt={character.name}
           sx={{
             width: '100%',
-            height: 300,
+            height: '20vh',
             objectFit: 'cover'
           }}
         />

@@ -1,11 +1,31 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useCharactersFilter } from '../../../context/CharactersFilterContext'
-import ProfileIcon from '../../../assets/images/profile.png'
+import { auth } from '../../../../config/firebase'
+import { onAuthStateChanged } from 'firebase/auth'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+
 export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null)
+  const [userName, setUserName] = useState(null)
   const navRef = useRef(null)
   const { handleCharactersStyleChange } = useCharactersFilter()
+
+  useEffect(() => {
+    // Track authentication state
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user)
+      if (user) {
+        // Get user name from email or displayName
+        const name = user.displayName || user.email?.split('@')[0] || 'User'
+        setUserName(name)
+      } else {
+        setUserName(null)
+      }
+    })
+    return () => unsubscribe()
+  }, [])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -148,9 +168,38 @@ export default function Navbar() {
         </li>
       </ul>
       <div className="flex items-center gap-2">
-        <Link to="/profile"> <img src={ProfileIcon} alt="Profile" className="w-6 h-6 border-2 border-royal-blue-500 rounded-full" /></Link>
-        <Link to="/sign-in">Sign In</Link>
-        <Link to="/sign-up">Sign Up</Link>
+        {currentUser ? (
+          <Link 
+            to="/profile" 
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-all duration-200 group"
+          >
+            <div className="relative">
+              <AccountCircleIcon 
+                sx={{ 
+                  fontSize: 32, 
+                  color: '#3b82f6',
+                  transition: 'transform 0.2s'
+                }}
+                className="group-hover:scale-110"
+              />
+            </div>
+            <span className="text-sm font-semibold text-gray-700">{userName}</span>
+          </Link>
+        ) : (
+          <Link 
+            to="/sign-in" 
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-all duration-200 group"
+          >
+            <AccountCircleIcon 
+              sx={{ 
+                fontSize: 32, 
+                color: '#6b7280',
+                transition: 'transform 0.2s'
+              }}
+              className="group-hover:scale-110 group-hover:text-blue-500"
+            />
+          </Link>
+        )}
       </div>
     </nav>
   )
