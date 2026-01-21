@@ -1,12 +1,18 @@
 import { db } from "../../config/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
-export async function createUser(email, password, name) {
-    const usersCollection = collection(db, "users");
-    await addDoc(usersCollection, {
+/**
+ * Создает документ пользователя в Firestore с ID равным userId
+ * @param {string} userId - UID пользователя из Firebase Auth
+ * @param {string} email - Email пользователя
+ * @param {string} name - Имя пользователя (опционально)
+ */
+export async function createUser(userId, email, name) {
+    const userRef = doc(db, "users", userId);
+    await setDoc(userRef, {
         email: email,
         name: name || "",
         createdAt: new Date(),
         // Note: passwords are not stored in Firestore - they are managed by Firebase Auth
-    });
+    }, { merge: true });
 }

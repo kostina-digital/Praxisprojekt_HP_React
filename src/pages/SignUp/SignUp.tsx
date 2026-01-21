@@ -20,6 +20,8 @@ import Content from '../SignInPage/components/Content';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../config/firebase';
 import { createUser } from '../../firebase/users';
+import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -40,12 +42,16 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 export default function SignUp(props: { disableCustomTheme?: boolean }) {
+  const navigate = useNavigate();
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+  const [successMessage, setSuccessMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;
@@ -105,19 +111,48 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     console.log('handleSubmit - password:', password ? '***' : 'empty');
     console.log('handleSubmit - name:', name);
     
+    // Очищаем предыдущие сообщения
+    setSuccessMessage('');
+    setErrorMessage('');
+    setIsLoading(true);
+    
     try {
       // Create user in Firebase Auth
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userId = userCredential.user.uid;
       console.log('User created in Firebase Auth successfully');
       
-      // Create user record in Firestore
-      await createUser(email, password, name);
+      // Create user record in Firestore with userId as document ID
+      await createUser(userId, email, name);
       console.log('User data saved to Firestore successfully');
       
-      // alert('User created successfully');
-    } catch (err) {
+      // Показываем сообщение об успехе
+      setSuccessMessage('Registration successful! Redirecting to your profile...');
+      setIsLoading(false);
+      
+      // Редирект на профиль через 1.5 секунды
+      setTimeout(() => {
+        navigate('/profile');
+      }, 1500);
+      
+    } catch (err: any) {
       console.error('Error creating user:', err);
-      // alert('Error creating user'); 
+      setIsLoading(false);
+      
+      // Обрабатываем различные типы ошибок
+      let errorMsg = 'Registration failed. Please try again.';
+      
+      if (err.code === 'auth/email-already-in-use') {
+        errorMsg = 'This email is already registered. Please sign in or use a different email.';
+      } else if (err.code === 'auth/weak-password') {
+        errorMsg = 'Password is too weak. Please use a stronger password.';
+      } else if (err.code === 'auth/invalid-email') {
+        errorMsg = 'Invalid email address. Please check your email and try again.';
+      } else if (err.message) {
+        errorMsg = err.message;
+      }
+      
+      setErrorMessage(errorMsg);
     }
   };
 
@@ -239,12 +274,26 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive updates via email."
                 />
+                
+                {successMessage && (
+                  <Alert severity="success" sx={{ mt: 1 }}>
+                    {successMessage}
+                  </Alert>
+                )}
+                
+                {errorMessage && (
+                  <Alert severity="error" sx={{ mt: 1 }}>
+                    {errorMessage}
+                  </Alert>
+                )}
+                
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
+                  disabled={isLoading}
                 >
-                  Sign up
+                  {isLoading ? 'Creating account...' : 'Sign up'}
                 </Button>
                 <Typography sx={{ textAlign: 'center' }}>
                   Already have an account?{' '}

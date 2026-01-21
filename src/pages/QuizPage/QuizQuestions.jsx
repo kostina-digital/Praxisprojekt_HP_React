@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import quizData from './quizData.json'
-import Button from '@mui/material/Button'
+import CTAButton from '../../components/common/CTAButton.jsx'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Radio from '@mui/material/Radio'
@@ -9,12 +9,40 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import GryffindorImg from '../../assets/images/GryffindorHero.png'
+import HufflepuffImg from '../../assets/images/HufflepuffHero.png'
+import RavenclawImg from '../../assets/images/RavenclawHero.png'
+import SlytherinImg from '../../assets/images/SlytherinHero.png'
+import QuizResultsSection from '../../components/common/QuizResultsSection.jsx'
+import { auth } from '../../../config/firebase'
+import { onAuthStateChanged } from 'firebase/auth'
+import { saveQuizResult } from '../../firebase/quiz.js'
+
+const houseImages = {
+  courage: GryffindorImg,
+  wisdom: RavenclawImg,
+  loyalty: HufflepuffImg,
+  ambition: SlytherinImg
+}
 
 export default function QuizQuestions() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [answers, setAnswers] = useState({})
   const [showResult, setShowResult] = useState(false)
   const [result, setResult] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null)
+
+  // Получаем текущего пользователя
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('Current user UID:', user.uid)
+        console.log('Current user email:', user.email)
+      }
+      setCurrentUser(user)
+    })
+    return () => unsubscribe()
+  }, [])
 
   const questions = quizData.quiz.questions
   const currentQuestion = questions[currentQuestionIndex]
@@ -43,7 +71,7 @@ export default function QuizQuestions() {
     }
   }
 
-  const calculateResult = () => {
+  const calculateResult = async () => {
     const houseCounts = {
       courage: 0,
       wisdom: 0,
@@ -61,8 +89,23 @@ export default function QuizQuestions() {
       houseCounts[a] > houseCounts[b] ? a : b
     )
 
-    setResult(quizData.quiz.results[maxHouse])
+    // Сохраняем только название дома для Firebase
+    setResult({ houseName: maxHouse })
     setShowResult(true)
+
+    // Сохраняем результат в Firebase, если пользователь залогинен
+    if (currentUser && currentUser.uid) {
+      try {
+        console.log('Saving quiz result for user:', currentUser.uid, 'house:', maxHouse)
+        await saveQuizResult(currentUser.uid, maxHouse)
+        console.log('Quiz result saved to Firebase successfully for user:', currentUser.uid)
+      } catch (error) {
+        console.error('Failed to save quiz result:', error)
+        // Не блокируем показ результата, даже если сохранение не удалось
+      }
+    } else {
+      console.log('User not logged in, skipping save to Firebase')
+    }
   }
 
   const handleRestart = () => {
@@ -80,23 +123,7 @@ export default function QuizQuestions() {
 
   if (showResult && result) {
     return (
-      <Box className="flex flex-col items-center gap-4 p-8 max-w-2xl mx-auto">
-        <Card sx={{ width: '100%', p: 4 }}>
-          <CardContent>
-            <Typography variant="h3" component="h2" gutterBottom align="center">
-              {result.title}
-            </Typography>
-            <Typography variant="body1" align="center" sx={{ fontSize: '1.2rem', mt: 2 }}>
-              {result.description}
-            </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-              <Button variant="contained" onClick={handleRestart} size="large">
-                Take Quiz Again
-              </Button>
-            </Box>
-          </CardContent>
-        </Card>
-      </Box>
+      <QuizResultsSection houseName={result.houseName} handleRestart={handleRestart} />
     )
   }
 
@@ -136,21 +163,18 @@ export default function QuizQuestions() {
             </RadioGroup>
           </FormControl>
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
-            <Button
-              variant="outlined"
-              onClick={handlePrevious}
-              disabled={currentQuestionIndex === 0}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="contained"
+          <Box sx={{ display: 'flex', justifyContent: currentQuestionIndex === 0 ? 'flex-end' : 'space-between', mt: 4, gap: 2 }}>
+            {currentQuestionIndex > 0 && (
+              <CTAButton
+                text="Previous"
+                onClick={handlePrevious}
+              />
+            )}
+            <CTAButton
+              text={currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next'}
               onClick={handleNext}
               disabled={!selectedAnswer}
-            >
-              {currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next'}
-            </Button>
+            />
           </Box>
         </CardContent>
       </Card>

@@ -32,8 +32,8 @@ export default function CategoryCardProfileMenu({ data }) {
             objectFit: 'cover'
           }}
         />
-        <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-          <Typography gutterBottom variant="h5" component="div" sx={{ color: 'text.primary' }}>
+        <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'flex-center', justifyContent: 'flex-center'}}>
+          <Typography gutterBottom variant="h5" component="div" sx={{ color: 'text.primary', textAlign: 'center' }}>
             {data.name || 'Unknown'}
           </Typography>
         </CardContent>

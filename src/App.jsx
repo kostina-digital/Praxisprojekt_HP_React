@@ -12,7 +12,7 @@ import { CharactersFilterProvider } from "./context/CharactersFilterContext.jsx"
 import FirebaseContext from "./context/Firebase.jsx";
 import TermsOfService from "./pages/TermsOfService.jsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
-import ContactUs from "./pages/ContactUs.jsx";
+import ContactUs from "./pages/ContactUSPage/ContactUsPage.jsx";
 import HousePage from "./pages/Houses/HousePage/HousePage.jsx";
 import ProfilePage from "./pages/ProfilePage/ProfilePage.jsx";
 import QuizPage from "./pages/QuizPage/QuizPage.jsx";
@@ -20,9 +20,11 @@ import Firebase from "../config/firebase.js";
 import ForumPage from "./pages/ForumPage/ForumPage.jsx";
 import TopicPage from "./pages/ForumPage/TopicPage.jsx";
 import CreateTopic from "./pages/ForumPage/CreateTopic.jsx";
+import { Provider } from "@/components/ui/provider";
 
 export default function App() {
   return (
+    <Provider>
     <BrowserRouter>
       <FirebaseContext.Provider value={new Firebase()}>
         <CharactersFilterProvider>
@@ -51,5 +53,6 @@ export default function App() {
         </CharactersFilterProvider>
       </FirebaseContext.Provider>
     </BrowserRouter>
+    </Provider>
   );
 }

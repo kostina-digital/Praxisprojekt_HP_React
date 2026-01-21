@@ -4,6 +4,7 @@ import { auth, realtimeDb } from '../../../config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { ref, onValue, off } from 'firebase/database';
 import TopicPreviewCard from './TopicPreviewCard.jsx';
+import CTAButton from '../../components/common/CTAButton.jsx';
 
 export default function ForumPage() {
   const navigate = useNavigate();
@@ -66,12 +67,7 @@ export default function ForumPage() {
           </p>
         </div>
         {currentUser && (
-          <button
-            onClick={() => navigate('/forum/create-topic')}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            + Create Topic
-          </button>
+          <CTAButton href="/forum/create-topic" text="+ Create Topic" />
         )}
       </div>
 

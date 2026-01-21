@@ -107,19 +107,23 @@
       ],
       "results": {
         "courage": {
-          "title": "House of Courage",
+          "houseImage": "/images/houses/gryffindor.png",
+          "title": "House of Courage - Gryffindor",
           "description": "You are brave, bold, and never afraid to stand up for what you believe in. Adventure follows you wherever you go."
         },
         "wisdom": {
-          "title": "House of Wisdom",
+          "houseImage": "/images/houses/ravenclaw.png",
+          "title": "House of Wisdom - Ravenclaw",
           "description": "Your mind is your greatest power. You value knowledge, creativity, and thoughtful decisions above all else."
         },
         "loyalty": {
-          "title": "House of Loyalty",
+          "houseImage": "/images/houses/hufflepuff.png",
+          "title": "House of Loyalty - Hufflepuff",
           "description": "You are kind, dependable, and deeply value friendship. People trust you and feel safe around you."
         },
         "ambition": {
-          "title": "House of Ambition",
+          "houseImage": "/images/houses/slytherin.png",
+          "title": "House of Ambition - Slytherin",
           "description": "You are determined, strategic, and always striving for greatness. Success comes to those who dare to reach for it."
         }
       }

@@ -1,38 +1,32 @@
-import placeholderImg from '../../assets/images/placeholder.webp'
-import gryffindorImg from '../../assets/images/Gryffindor.png'
-import book1Img from '../../assets/images/book1.png'
-import quizImg from '../../assets/images/quizImg.jpeg'
-import forumBGImg from '../../assets/images/forumBGImg.png'
+import caractersCardImg from '../../assets/images/caractersCardImg.webp'
+import housesCardImg from '../../assets/images/hausesCardImg.jpg'
+import booksCardImg from '../../assets/images/booksCardImg.png'
+import quizCardImg from '../../assets/images/quizCardImg.jpg'
 
 export const categorysProfilePage = [
     {
         id: 1,
         name: 'Characters',
-        image: placeholderImg,
+        image: caractersCardImg,
         link: '/characters',
     },
     {
         id: 2,
         name: 'Houses',
-        image: gryffindorImg,
+        image: housesCardImg,
         link: '/houses',
     },
     {
         id: 3,
         name: 'Books',
-        image: book1Img,
+        image: booksCardImg,
         link: '/books',
     },
     {
         id: 4,
         name: 'Quiz',
-        image: quizImg,
+        image: quizCardImg,
         link: '/quiz',
     },
-    {
-        id: 5,
-        name: 'Forum',
-        image: forumBGImg,
-        link: '/forum',
-    },
+    
 ]
