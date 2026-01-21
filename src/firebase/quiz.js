@@ -2,9 +2,9 @@ import { db } from "../../config/firebase";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 /**
- * Сохраняет результат квиза для пользователя
- * @param {string} userId - ID пользователя (UID из Firebase Auth)
- * @param {string} houseName - Название дома (courage, wisdom, loyalty, ambition)
+ * Saves quiz result for a user
+ * @param {string} userId - User ID (UID from Firebase Auth)
+ * @param {string} houseName - House name (courage, wisdom, loyalty, ambition)
  * @returns {Promise<void>}
  */
 export async function saveQuizResult(userId, houseName) {
@@ -19,27 +19,27 @@ export async function saveQuizResult(userId, houseName) {
     
     console.log(`Attempting to save quiz result - userId: ${userId}, houseName: ${houseName}`);
     
-    // Сохраняем результат в документ пользователя с ID = userId
-    // Используем setDoc с merge: true, чтобы не перезаписать другие данные пользователя
-    // Это создаст документ с ID = userId, если его еще нет
+    // Save result to user document with ID = userId
+    // Use setDoc with merge: true to avoid overwriting other user data
+    // This will create a document with ID = userId if it doesn't exist yet
     const userRef = doc(db, "users", userId);
     console.log(`Document reference created: users/${userId}`);
     
-    // Проверяем, существует ли документ
+    // Check if document exists
     const userSnap = await getDoc(userRef);
     console.log(`Document exists: ${userSnap.exists()}`);
     
     if (userSnap.exists()) {
-      // Если документ существует, обновляем только нужные поля
+      // If document exists, update only the necessary fields
       await updateDoc(userRef, {
         quizResult: houseName,
         quizCompletedAt: new Date(),
       });
       console.log(`✅ Quiz result updated in existing document: users/${userId}`);
     } else {
-      // Если документа нет, создаем новый с userId как ID
+      // If document doesn't exist, create a new one with userId as ID
       await setDoc(userRef, {
-        email: "", // Будет заполнено при следующем обновлении профиля
+        email: "", // Will be filled on next profile update
         quizResult: houseName,
         quizCompletedAt: new Date(),
       });
@@ -60,9 +60,9 @@ export async function saveQuizResult(userId, houseName) {
 }
 
 /**
- * Получает результат квиза для пользователя
- * @param {string} userId - ID пользователя (UID из Firebase Auth)
- * @returns {Promise<string|null>} - Название дома или null, если результат не найден
+ * Gets quiz result for a user
+ * @param {string} userId - User ID (UID from Firebase Auth)
+ * @returns {Promise<string|null>} - House name or null if result not found
  */
 export async function getQuizResult(userId) {
   try {

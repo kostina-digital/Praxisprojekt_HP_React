@@ -75,7 +75,7 @@ export default function CreateTopic() {
       </button>
 
       <div className="bg-white border rounded shadow-md p-6">
-        <h1 className="text-2xl font-bold mb-6">Create New Topic</h1>
+        <h1 className="h1_style mb-6">Create New Topic</h1>
         
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

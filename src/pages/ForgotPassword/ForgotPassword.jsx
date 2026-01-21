@@ -15,7 +15,7 @@ export default function ForgotPassword() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-4">
         <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-          <h1 className="text-2xl font-bold mb-4 text-center">Check your email</h1>
+          <h1 className="h1_style mb-4 text-center">Check your email</h1>
           <p className="text-gray-600 dark:text-gray-300 mb-6 text-center">
             We've sent a password reset link to {email}
           </p>
@@ -33,7 +33,7 @@ export default function ForgotPassword() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-        <h1 className="text-2xl font-bold mb-4 text-center">Forgot Password</h1>
+        <h1 className="h1_style mb-4 text-center">Forgot Password</h1>
         <p className="text-gray-600 dark:text-gray-300 mb-6 text-center">
           Enter your email address and we'll send you a link to reset your password.
         </p>

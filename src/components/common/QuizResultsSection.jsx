@@ -17,14 +17,14 @@ const houseImages = {
 }
 
 /**
- * Компонент для отображения результата квиза
- * @param {string} houseName - Название дома (courage, wisdom, loyalty, ambition). Если передан, компонент сам получит данные из quizData
- * @param {object} result - Полный объект результата (опционально, если houseName не передан)
- * @param {function} handleRestart - Функция для перезапуска квиза (опционально)
- * @param {boolean} showRestartButton - Показывать ли кнопку "Take Quiz Again" (по умолчанию true)
+ * Component for displaying quiz result
+ * @param {string} houseName - House name (courage, wisdom, loyalty, ambition). If provided, component will fetch data from quizData
+ * @param {object} result - Full result object (optional, if houseName is not provided)
+ * @param {function} handleRestart - Function to restart quiz (optional)
+ * @param {boolean} showRestartButton - Whether to show "Take Quiz Again" button (default: true)
  */
 export default function QuizResultsSection({ houseName, result, handleRestart, showRestartButton = true }) {
-  // Если передан houseName, получаем данные из quizData
+  // If houseName is provided, get data from quizData
   let displayResult = result
   
   if (houseName && !result) {
@@ -37,7 +37,7 @@ export default function QuizResultsSection({ houseName, result, handleRestart, s
     }
   }
   
-  // Если передан result с houseImage, используем его
+  // If result with houseImage is provided, use it
   if (result && result.houseImage) {
     displayResult = result
   }

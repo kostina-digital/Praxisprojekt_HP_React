@@ -110,7 +110,7 @@ export default function Characters() {
   return (
     <>
     <div className='flex flex-col gap-4 mb-8 mt-8'>
-      <h1>Characters</h1>
+      <h1 className="h1_style">Characters</h1>
       <div className='flex gap-4'>
       <select className='select_style' value={house} onChange={handleHouseChange}>
         <option value="all">All</option>

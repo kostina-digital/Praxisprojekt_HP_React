@@ -32,7 +32,7 @@ export default function QuizQuestions() {
   const [result, setResult] = useState(null)
   const [currentUser, setCurrentUser] = useState(null)
 
-  // Получаем текущего пользователя
+  // Get current user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -89,11 +89,11 @@ export default function QuizQuestions() {
       houseCounts[a] > houseCounts[b] ? a : b
     )
 
-    // Сохраняем только название дома для Firebase
+    // Save only the house name for Firebase
     setResult({ houseName: maxHouse })
     setShowResult(true)
 
-    // Сохраняем результат в Firebase, если пользователь залогинен
+    // Save result to Firebase if user is logged in
     if (currentUser && currentUser.uid) {
       try {
         console.log('Saving quiz result for user:', currentUser.uid, 'house:', maxHouse)
@@ -101,7 +101,7 @@ export default function QuizQuestions() {
         console.log('Quiz result saved to Firebase successfully for user:', currentUser.uid)
       } catch (error) {
         console.error('Failed to save quiz result:', error)
-        // Не блокируем показ результата, даже если сохранение не удалось
+        // Don't block result display even if save failed
       }
     } else {
       console.log('User not logged in, skipping save to Firebase')
@@ -173,7 +173,7 @@ export default function QuizQuestions() {
             <CTAButton
               text={currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next'}
               onClick={handleNext}
-              disabled={!selectedAnswer}
+              isDisabled={!selectedAnswer}
             />
           </Box>
         </CardContent>

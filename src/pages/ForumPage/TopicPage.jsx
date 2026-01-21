@@ -154,9 +154,9 @@ export default function TopicPage() {
       <TopicCard topic={topic} />
       
       <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">
+        <h3 className="h3_style mb-4">
           Replies ({replies.length})
-        </h2>
+        </h3>
         
         {replies.length > 0 ? (
           <div>

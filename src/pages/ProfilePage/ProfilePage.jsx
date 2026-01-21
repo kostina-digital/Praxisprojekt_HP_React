@@ -12,7 +12,7 @@ import { getQuizResult } from '../../firebase/quiz.js';
 import housesData from '../Houses/HousesData.js';
 import HousePageHero from '../Houses/HousePage/HousePageHero.jsx';
 
-// Маппинг из quizResult (courage, wisdom, loyalty, ambition) в название дома
+// Mapping from quizResult (courage, wisdom, loyalty, ambition) to house name
 const quizResultToHouseName = {
   courage: 'Gryffindor',
   wisdom: 'Ravenclaw',
@@ -32,7 +32,7 @@ export default function ProfilePage() {
                 // User is signed in
                 setUserEmail(user.displayName || user.email?.split('@')[0] || 'User');
                 
-                // Получаем результат квиза из Firebase
+                // Get quiz result from Firebase
                 try {
                     const houseName = await getQuizResult(user.uid);
                     if (houseName) {

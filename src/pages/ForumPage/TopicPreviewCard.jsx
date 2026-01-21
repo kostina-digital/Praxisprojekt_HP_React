@@ -9,7 +9,7 @@ export default function TopicPreviewCard({ topic }) {
     <Link to={`/forum/topic/${topicId}`} className="block">
       <div className="flex items-center justify-between border p-4 rounded shadow-sm bg-white hover:shadow-md transition-shadow mb-3">
         <div className="flex-1">
-          <h3 className="text-lg font-bold mb-2 hover:text-blue-600">
+          <h3 className="h3_style mb-2 hover:text-blue-600">
             {topic.title || 'Untitled Topic'}
           </h3>
           <div className="flex items-center text-xs text-gray-400 gap-2 mb-2">

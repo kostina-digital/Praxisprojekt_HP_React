@@ -111,7 +111,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     console.log('handleSubmit - password:', password ? '***' : 'empty');
     console.log('handleSubmit - name:', name);
     
-    // Очищаем предыдущие сообщения
+    // Clear previous messages
     setSuccessMessage('');
     setErrorMessage('');
     setIsLoading(true);
@@ -126,11 +126,11 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
       await createUser(userId, email, name);
       console.log('User data saved to Firestore successfully');
       
-      // Показываем сообщение об успехе
+      // Show success message
       setSuccessMessage('Registration successful! Redirecting to your profile...');
       setIsLoading(false);
       
-      // Редирект на профиль через 1.5 секунды
+      // Redirect to profile after 1.5 seconds
       setTimeout(() => {
         navigate('/profile');
       }, 1500);
@@ -139,7 +139,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
       console.error('Error creating user:', err);
       setIsLoading(false);
       
-      // Обрабатываем различные типы ошибок
+      // Handle different error types
       let errorMsg = 'Registration failed. Please try again.';
       
       if (err.code === 'auth/email-already-in-use') {

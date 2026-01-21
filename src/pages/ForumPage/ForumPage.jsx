@@ -61,7 +61,7 @@ export default function ForumPage() {
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Forum</h1>
+          <h1 className="h1_style mb-2">Forum</h1>
           <p className="text-gray-600">
             Here you can find the latest news and updates about the Harry Potter universe.
           </p>

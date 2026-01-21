@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 
-export default function CTAButton({href=null, text, onClick=null}) {
+export default function CTAButton({href=null, text, onClick=null, isDisabled=false}) {
   const buttonProps = {
     fontSize: "1.2rem",
     px: 8,
@@ -10,6 +10,7 @@ export default function CTAButton({href=null, text, onClick=null}) {
     transition: "all 0.2s",
     backgroundColor: "#646cff",
     color: "white",
+    isDisabled: isDisabled,
     _hover: {
       backgroundColor: "#535bf2",
       color: "white"
@@ -23,7 +24,7 @@ export default function CTAButton({href=null, text, onClick=null}) {
     },
   }
 
-  // Если есть onClick, используем обычную кнопку
+  // If onClick is provided, use regular button
   if (onClick) {
     return (
       <Button 
@@ -35,7 +36,7 @@ export default function CTAButton({href=null, text, onClick=null}) {
     )
   }
 
-  // Если есть href, используем Link
+  // If href is provided, use Link
   if (href) {
     return (
       <Button {...buttonProps}
@@ -47,7 +48,7 @@ export default function CTAButton({href=null, text, onClick=null}) {
     )
   }
 
-  // Если нет ни href, ни onClick, просто кнопка
+  // If neither href nor onClick, just a button
   return (
     <Button {...buttonProps}>
       {text}

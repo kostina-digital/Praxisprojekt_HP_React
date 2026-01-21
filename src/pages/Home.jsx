@@ -4,7 +4,6 @@ import HouseCard from './Houses/HouseCard.jsx'
 import CharactersCard from './Characters/CharactersCard.jsx'
 import QuizSection from './QuizPage/QuizSection.jsx'
 import ForumSection from './ForumPage/ForumSection.jsx'
-import CTAButton from '../components/common/CTAButton.jsx'
 import HeroSection from './HeroSection/HeroSection.jsx'
 
 export default function Home() {

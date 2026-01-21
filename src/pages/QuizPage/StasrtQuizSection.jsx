@@ -1,5 +1,4 @@
 import quizBG from '../../assets/images/quizBG.png'
-import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import CTAButton from '../../components/common/CTAButton.jsx'
 
@@ -7,7 +6,7 @@ export default function StartQuizSection({ handleStartQuiz }) {
 
     return (
         <>
-        <h1 className="text-4xl font-bold text-start my-8">Quiz</h1>
+        <h1 className="h1_style my-8">Quiz</h1>
         <div className="flex flex-col items-center bg-cover bg-center justify-between h-96 p-8" style={{ backgroundImage: `url(${quizBG})` }}>
           <h3
             className="text-6xl text-center font-bold italic pt-16"
@@ -24,9 +23,6 @@ export default function StartQuizSection({ handleStartQuiz }) {
           >
             Which House Do You Belong To?
           </h3>
-          <Box sx={{ mt: 4 }}>
-            
-          </Box>
           {/* The button does not work because the href will cause a navigation before onClick is fired.
               To fix this, we can remove href, and trigger quiz start only via the onClick handler. */}
           <CTAButton text="Start Quiz" onClick={handleStartQuiz} />
