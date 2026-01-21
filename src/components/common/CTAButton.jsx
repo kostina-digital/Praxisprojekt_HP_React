@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 
-export default function CTAButton({href=null, text, onClick=null, isDisabled=false}) {
+export default function CTAButton({href=null, text, onClick=null, isDisabled=false, type=null}) {
   const buttonProps = {
     fontSize: "1.2rem",
     px: 8,
@@ -22,6 +22,7 @@ export default function CTAButton({href=null, text, onClick=null, isDisabled=fal
       opacity: 0.5,
       cursor: "not-allowed"
     },
+    ...(type && { type })
   }
 
   // If onClick is provided, use regular button

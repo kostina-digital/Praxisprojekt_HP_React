@@ -27,8 +27,6 @@ export default function CharactersCard() {
   
   return (
     <div className="flex flex-col gap-4">
-        <h2 className="h2_style">Featured Characters</h2>
-        <h3 className="h3_style">Click on a character to learn more about them.</h3>
       <div className="flex gap-4 flex-wrap justify-between w-full">
         {featuredCharacters.map((character) => (
           <CharacterCard key={character.id || character.name} character={character} />

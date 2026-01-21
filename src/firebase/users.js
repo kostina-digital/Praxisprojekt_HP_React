@@ -2,10 +2,10 @@ import { db } from "../../config/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 /**
- * Создает документ пользователя в Firestore с ID равным userId
- * @param {string} userId - UID пользователя из Firebase Auth
- * @param {string} email - Email пользователя
- * @param {string} name - Имя пользователя (опционально)
+ * Creates a user document in Firestore with ID equal to userId
+ * @param {string} userId - User UID from Firebase Auth
+ * @param {string} email - User email
+ * @param {string} name - User name (optional)
  */
 export async function createUser(userId, email, name) {
     const userRef = doc(db, "users", userId);

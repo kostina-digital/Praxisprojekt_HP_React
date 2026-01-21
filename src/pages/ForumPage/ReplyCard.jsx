@@ -1,3 +1,5 @@
+import CTAButton from '../../components/common/CTAButton.jsx';
+
 export default function ReplyCard({ reply, onReplyClick }) {
   if (!reply) return null;
 
@@ -42,12 +44,10 @@ export default function ReplyCard({ reply, onReplyClick }) {
       </div>
       </div>
       <div className="flex items-center gap-4 mt-2 text-sm">
-        <button
+        <CTAButton
           onClick={onReplyClick || (() => console.log("Reply to:", reply.id))}
-          className="text-gray-500 hover:text-gray-700 transition-colors"
-        >
-          💬 Reply
-        </button>
+          text="💬 Reply"
+        />
       </div>
     </div>
   );

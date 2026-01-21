@@ -126,15 +126,13 @@ export default function Navbar({ isMobile = false, onLinkClick = null }) {
           )}
         </li>
         <li className={`relative flex items-center ${isMobile ? 'w-full flex-col' : ''}`}>
+          <Link to="/houses" className={`transition-all ${isActive('/houses') ? 'text-[#646cff]' : 'text-[#0B1C2D]'} hover:drop-shadow-[0_0_8px_#646cffaa] ${isMobile ? 'block w-full px-4 py-2' : ''}`}>
+            Houses
+          </Link>
           <button
             onClick={() => handleDropdownToggle('houses')}
             className={`flex items-center gap-1 transition-all bg-transparent border-none p-0 m-0 ${isActive('/houses') ? 'text-[#646cff]' : 'text-[#0B1C2D]'} hover:drop-shadow-[0_0_8px_#646cffaa] ${isMobile ? 'w-full px-4 py-2 text-left' : ''}`}
-          >
-            Houses
-            <span className={`transform transition-transform ${openDropdown === 'houses' ? 'rotate-180' : ''}`}>
-              ▼
-            </span>
-          </button>
+          ></button>
           {openDropdown === 'houses' && (
             <ul className={`${isMobile ? 'w-full mt-2' : 'absolute top-full left-0 mt-1'} bg-white shadow-lg rounded-md py-2 ${isMobile ? '' : 'min-w-[200px]'} z-10`}>
               <li>

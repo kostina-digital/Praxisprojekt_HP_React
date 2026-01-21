@@ -12,9 +12,9 @@ export default function Houses() {
       <HouseCard />
       </div>
       </section>
-      <section>
+      <section className="mb-8">
       <h2 className="h2_style">Houses Gallery</h2>
-      <p className="text-sm md:text-base lg:text-lg text-justify">Have you long been in search of exclusive backgrounds from the Harry Potter universe? Discover and download the finest selections here — entirely free.</p>
+      <p className="text-sm md:text-base lg:text-lg text-justify mb-8">Have you long been in search of exclusive backgrounds from the Harry Potter universe? Discover and download the finest selections here — entirely free.</p>
       <Gallery images={housesGalleryImages} />
       </section>
     </>

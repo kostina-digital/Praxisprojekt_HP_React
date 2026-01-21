@@ -37,8 +37,8 @@ export default function HousePage() {
           <HouseCharactersCard house={house.name.toLowerCase()} />
         </div>
       </div>
-      <QuizSection />
-
+      <QuizSection/>
+      <section className="mb-8"></section>
     </>
   )
 }

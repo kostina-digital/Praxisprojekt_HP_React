@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import TopicCard from './TopicCard.jsx';
 import ReplyCard from './ReplyCard.jsx';
+import CTAButton from '../../components/common/CTAButton.jsx';
 import { auth, realtimeDb } from '../../../config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { ref, onValue, off, push, set, update } from 'firebase/database';
@@ -222,13 +223,11 @@ export default function TopicPage() {
               />
             </div>
             <div className="flex items-center gap-2">
-              <button
+              <CTAButton
                 type="submit"
-                disabled={!replyContent.trim()}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
-              >
-                {replyingTo ? 'Post Reply' : 'Post Reply'}
-              </button>
+                text={replyingTo ? 'Post Reply' : 'Post Reply'}
+                isDisabled={!replyContent.trim()}
+              />
               {replyingTo && (
                 <button
                   type="button"

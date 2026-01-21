@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom'
 export default function HouseCard() {
   return (
     <>
-    <h2 className="h2_style">Houses</h2>
-    <h3 className="h3_style">Click on a house to learn more about it.</h3>
     <div className="flex gap-4 flex-wrap justify-between w-full">
       {housesData.map((house) => (
         <Link to={house.link} key={house.name}>

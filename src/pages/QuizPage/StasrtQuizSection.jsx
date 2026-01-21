@@ -6,10 +6,9 @@ export default function StartQuizSection({ handleStartQuiz }) {
 
     return (
         <>
-        <h1 className="h1_style my-8">Quiz</h1>
         <div className="flex flex-col items-center bg-cover bg-center justify-between h-96 p-8" style={{ backgroundImage: `url(${quizBG})` }}>
           <h3
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center font-bold italic pt-8 md:pt-16"
+            className="text-6xl text-center font-bold italic pt-16"
             style={{
               color: '#fff',
               fontFamily: `'Cormorant Garamond', 'Times New Roman', serif`,
