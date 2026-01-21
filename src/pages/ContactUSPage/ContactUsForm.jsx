@@ -15,7 +15,7 @@ export default function ContactUsForm() {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2 mb-4">
         <h2 className="h2_style">Send Us a Message</h2>
-        <p className="text-gray-600 text-lg">Please fill in the form below to get in touch with us.</p>
+        <p className="text-gray-600 text-sm md:text-base lg:text-lg">Please fill in the form below to get in touch with us.</p>
       </div>
       
       <form onSubmit={onSubmit}>

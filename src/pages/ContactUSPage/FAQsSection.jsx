@@ -11,7 +11,7 @@ export default function FAQsSection() {
     <Stack gap="4" width="100%">
       <div className="flex flex-col gap-2 mb-4">
         <h2 className="h2_style">Frequently Asked Questions</h2>
-        <p className="text-gray-600 text-lg">Here are some of the most frequently asked questions about our website and services.</p>
+        <p className="text-gray-600 text-sm md:text-base lg:text-lg">Here are some of the most frequently asked questions about our website and services.</p>
       </div>
       <Accordion.Root collapsible>
         {FAQsData.map((item, index) => (

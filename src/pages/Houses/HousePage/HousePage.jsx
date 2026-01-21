@@ -32,7 +32,7 @@ export default function HousePage() {
         <div className="w-3/4 flex flex-col gap-8">
           <div className="flex flex-col items-between gap-4">
             <h1 className="h1_style">{house.emoji} {house.name}</h1>
-            <p className="w-full text-lg text-justify">{house.description}</p>
+            <p className="w-full text-sm md:text-base lg:text-lg text-justify">{house.description}</p>
           </div>
           <HouseCharactersCard house={house.name.toLowerCase()} />
         </div>

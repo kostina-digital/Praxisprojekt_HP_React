@@ -14,7 +14,7 @@ export default function Houses() {
       </section>
       <section>
       <h2 className="h2_style">Houses Gallery</h2>
-      <p className="text-lg text-justify">Have you long been in search of exclusive backgrounds from the Harry Potter universe? Discover and download the finest selections here — entirely free.</p>
+      <p className="text-sm md:text-base lg:text-lg text-justify">Have you long been in search of exclusive backgrounds from the Harry Potter universe? Discover and download the finest selections here — entirely free.</p>
       <Gallery images={housesGalleryImages} />
       </section>
     </>
